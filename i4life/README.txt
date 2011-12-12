@@ -1,7 +1,7 @@
 Piping Tools use the following software:
 Smarty 3.0.7
-MySQL 5.0.51
-PHP 5
+MySQL 5.1 or above
+PHP 5.3
 
 php scripts are in:
 ~/works/i4life
