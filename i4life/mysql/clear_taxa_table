@@ -1,0 +1,2 @@
+mysql -ukwok -pwork pro_piping_tools -e \
+"TRUNCATE TABLE taxa"

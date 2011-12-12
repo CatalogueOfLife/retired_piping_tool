@@ -1,0 +1,29 @@
+head	1.1;
+access;
+symbols;
+locks; strict;
+comment	@# @;
+
+
+1.1
+date	2011.06.03.09.53.11;	author kwok;	state Exp;
+branches;
+next	;
+
+
+desc
+@dummy page for the time being
+@
+
+
+1.1
+log
+@Initial revision
+@
+text
+@{* home page template *}
+{* $Id$ *}
+
+<h3><font color="red"><em>{$message}</em></font></h3>
+<h4>Piping Tools Status Info will be shown here.</h4>
+@

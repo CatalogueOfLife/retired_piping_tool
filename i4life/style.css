@@ -1,0 +1,67 @@
+body {
+	font-family: 'Lucida Grande', Verdana, Arial, Sans-Serif;
+	color: #444;
+}
+
+h1 {font-size:150%;}
+h2 {font-size:130%}
+h4 {font-size:90%}
+p {font-size:80%}
+ul {font-size:80%}
+pre {font-size:80%}
+pre{ font-family: 'Lucida Grande', Verdana, Arial, Sans-Serif;}
+
+fieldset {font-size:80%}
+
+code {
+	color: blue;
+}
+
+table {
+	empty-cells:show;
+}
+table th {
+	background-color: #C0C0C0;
+	font-size:60%;
+	color: black;
+}
+
+table td {
+	font-size: 9pt;
+	color: black;
+}
+
+caption {font-size:70%}
+
+a:hover {
+	text-decoration: underline;
+	color: red;
+}
+
+a {
+	text-decoration: underline;
+	color: purple;
+}
+
+p.padding {
+	padding-right:50px;
+}
+
+span.inactive {color:grey;font-size:12}
+span.active {color:green;font-size:12}
+
+.even-row {
+	background: #FEFEFE;
+	font-size: 8pt;
+}
+.odd-row {
+	background: #E6FFFF;
+	font-size: 8pt;
+}
+
+.even-input {
+	background-color: white;
+}
+.odd-input {
+	background-color: #E6FFFF;
+}

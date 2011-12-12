@@ -1,0 +1,15 @@
+#! /bin/sh
+cd /home/kwok/works/schema
+
+mysql -ukwok -pwork pro_piping_tools -e \
+"DROP DATABASE pro_piping_tools; \
+CREATE DATABASE pro_piping_tools; \
+USE pro_piping_tools; \
+\. ./pro_schema.sql \
+"
+
+#"DROP DATABASE pro_piping_tools; \
+#CREATE DATABASE pro_piping_tools; \
+#USE pro_piping_tools; \
+#SOURCE '/home/kwok/works/schema/pro_schema.sql'"
+

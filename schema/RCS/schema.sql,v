@@ -1,0 +1,546 @@
+head	1.13;
+access;
+symbols;
+locks; strict;
+comment	@# @;
+
+
+1.13
+date	2011.02.09.14.00.15;	author kwok;	state Exp;
+branches;
+next	1.12;
+
+1.12
+date	2011.02.08.14.43.56;	author kwok;	state Exp;
+branches;
+next	1.11;
+
+1.11
+date	2011.01.31.10.31.51;	author kwok;	state Exp;
+branches;
+next	1.10;
+
+1.10
+date	2011.01.19.14.46.53;	author kwok;	state Exp;
+branches;
+next	1.9;
+
+1.9
+date	2011.01.19.14.39.25;	author kwok;	state Exp;
+branches;
+next	1.8;
+
+1.8
+date	2011.01.19.14.23.35;	author kwok;	state Exp;
+branches;
+next	1.7;
+
+1.7
+date	2011.01.17.12.55.38;	author kwok;	state Exp;
+branches;
+next	1.6;
+
+1.6
+date	2011.01.17.12.10.51;	author kwok;	state Exp;
+branches;
+next	1.5;
+
+1.5
+date	2011.01.17.11.50.15;	author kwok;	state Exp;
+branches;
+next	1.4;
+
+1.4
+date	2011.01.10.15.42.59;	author kwok;	state Exp;
+branches;
+next	1.3;
+
+1.3
+date	2011.01.07.09.46.49;	author kwok;	state Exp;
+branches;
+next	1.2;
+
+1.2
+date	2011.01.07.09.24.45;	author kwok;	state Exp;
+branches;
+next	1.1;
+
+1.1
+date	2011.01.07.09.20.17;	author kwok;	state Exp;
+branches;
+next	;
+
+
+desc
+@Original schema file from Viktor
+@
+
+
+1.13
+log
+@change gsd4 table field from order to order_ to avoid syntax
+error during export of this table
+@
+text
+@CREATE TABLE `piping_tools`.`taxa` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `provided_id` varchar(45) DEFAULT NULL COMMENT 'We do not know what type of identifiers are used by providers. Providers may refuse to provide their identifiers.',
+  `genus` varchar(45) NOT NULL,
+  `species_epithet` varchar(45) NOT NULL,
+  `infraspecies` varchar(50) DEFAULT NULL,
+  `infraspecies_marker` varchar(50) DEFAULT NULL,
+  `author_string` varchar(45) DEFAULT NULL,
+  `family` varchar(45) DEFAULT NULL,
+  `order` varchar(45) DEFAULT NULL,
+  `class` varchar(45) DEFAULT NULL,
+  `phylum` varchar(45) DEFAULT NULL,
+  `kingdom` varchar(50) DEFAULT NULL,
+  `provider_hints` varchar(255) DEFAULT NULL,
+  `updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'timestamp of the last update',
+  `provider_id` tinyint(3) unsigned NOT NULL COMMENT 'ID of provider as in providers table',
+  `gsd_comments` text COMMENT 'feedback from gsds',
+  `gsd_id` int(10) unsigned DEFAULT NULL COMMENT 'ID of GSD for which the name has been assigned',
+  `gsd_status` tinyint(1) DEFAULT NULL COMMENT 'Accepter or Rejected. Explanation of decision is stored in gsd_comments',
+  `history_status` integer(10) DEFAULT NULL COMMENT 'Indicates how many times species name appeared in providers list (even if it was accepted or rejected by GSDs before)',
+  `history_comments` varchar(255) DEFAULT NULL COMMENT 'Explains history_status - possibly discussion between provider, GSD and the COL)',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*Table stores input of names from providers and feedback from GSDs.
+Data from providers are appended to the table. Later on processing is done to find if there are repeating names.
+During the processing redundant (new names only) records should be deleted, and history_status for the original name updated.';*/
+
+CREATE TABLE  `piping_tools`.`gsds` (
+  `gsd_id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
+  `gsd_name` varchar(255) NOT NULL,
+  `gsd_short_name` varchar(48) NOT NULL COMMENT 'i.e. abreviation',
+  `notes` varchar(255) DEFAULT NULL,
+  `inclusion_date` date NOT NULL COMMENT 'Date when GSD has been included into the Catalogue of Life for the first time',
+  PRIMARY KEY (`gsd_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+/*Table stores list of GSDs - entities that are responsible for making decisions on name inclusion into their and the Catalogue of Life database'*/
+
+
+CREATE TABLE  `piping_tools`.`gsds_taxa_assignment` (
+  `record_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `gsd_id` smallint(5) unsigned NOT NULL COMMENT 'ID of GSD',
+  `taxa_name` varchar(45) NOT NULL COMMENT 'Name of family, class, phylum or kindom GSs deal with',
+  `taxa_level` varchar(45) NOT NULL COMMENT 'Taxonomic level of taxa_name: identifies it as kindom, phylum, class',
+  `notes` varchar(255) DEFAULT NULL COMMENT 'General notes on GSDs taxa assignement',
+  PRIMARY KEY (`record_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+/*Defines many-to-many relations between different taxonomic levels in taxa table AND GSDs in gsds table'*/
+
+
+CREATE TABLE  `piping_tools`.`providers` (
+  `provider_id` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
+  `provider_name` varchar(255) NOT NULL,
+  `provider_short_name` varchar(8) NOT NULL COMMENT 'i.e. abreviation of a name',
+  `notes` varchar(255) DEFAULT NULL,
+  `inclusion_date` date NOT NULL,
+  PRIMARY KEY (`provider_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+/*Table stores list of providers of species name lists (GBIF, EOL, etc)*/
+
+
+CREATE TABLE  `piping_tools`.`GBIF` (
+  `genus` varchar(45) NOT NULL,
+  `species_epithet` varchar(45) NOT NULL,
+  `infraspecies` varchar(50) DEFAULT NULL,
+  `infraspecies_marker` varchar(50) DEFAULT NULL,
+  `author_string` varchar(45) DEFAULT NULL,
+  `family` varchar(45) DEFAULT NULL,
+  `order` varchar(45) DEFAULT NULL,
+  `class` varchar(45) DEFAULT NULL,
+  `phylum` varchar(45) DEFAULT NULL,
+  `kingdom` varchar(50) DEFAULT NULL,
+  `provider_hints` varchar(255) DEFAULT NULL,
+  `provided_id` varchar(45) DEFAULT NULL COMMENT 'We do not know what type of identifiers are used by providers. Providers may refuse to provide their identifiers.',
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'timestamp of data entry',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+/* Input raw data from GBIF */
+
+CREATE TABLE  `piping_tools`.`GBIF_view` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'This id will be the same id in taxa table',
+  `genus` varchar(45) NOT NULL,
+  `species_epithet` varchar(45) NOT NULL,
+  `infraspecies` varchar(50) DEFAULT NULL,
+  `infraspecies_marker` varchar(50) DEFAULT NULL,
+  `author_string` varchar(45) DEFAULT NULL,
+  `family` varchar(45) DEFAULT NULL,
+  `order` varchar(45) DEFAULT NULL,
+  `class` varchar(45) DEFAULT NULL,
+  `phylum` varchar(45) DEFAULT NULL,
+  `kingdom` varchar(50) DEFAULT NULL,
+  `provider_hints` varchar(255) DEFAULT NULL,
+  `provided_id` varchar(45) DEFAULT NULL COMMENT 'We do not know what type of identifiers are used by providers. Providers may refuse to provide their identifiers.',
+  `last_modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'timestamp of last changes',
+  `gsd_id` int(10) unsigned DEFAULT NULL,
+  `gsd_short_name` varchar(48) DEFAULT NULL,
+  `gsd_status` tinyint(1) DEFAULT NULL,
+  `gsd_comments` text COMMENT 'feedback from gsds',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+/* Feedback data for GBIF */
+
+CREATE TABLE  `piping_tools`.`EBI` (
+  `genus` varchar(45) NOT NULL,
+  `species_epithet` varchar(45) NOT NULL,
+  `infraspecies` varchar(50) DEFAULT NULL,
+  `infraspecies_marker` varchar(50) DEFAULT NULL,
+  `author_string` varchar(45) DEFAULT NULL,
+  `family` varchar(45) DEFAULT NULL,
+  `order` varchar(45) DEFAULT NULL,
+  `class` varchar(45) DEFAULT NULL,
+  `phylum` varchar(45) DEFAULT NULL,
+  `kingdom` varchar(50) DEFAULT NULL,
+  `provider_hints` varchar(255) DEFAULT NULL,
+  `provided_id` varchar(45) DEFAULT NULL COMMENT 'We do not know what type of identifiers are used by providers. Providers may refuse to provide their identifiers.',
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'timestamp of data entry',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+/* Input raw data from EBI */
+
+CREATE TABLE  `piping_tools`.`EBI_view` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'This id will be the same id in taxa table',
+  `genus` varchar(45) NOT NULL,
+  `species_epithet` varchar(45) NOT NULL,
+  `infraspecies` varchar(50) DEFAULT NULL,
+  `infraspecies_marker` varchar(50) DEFAULT NULL,
+  `author_string` varchar(45) DEFAULT NULL,
+  `family` varchar(45) DEFAULT NULL,
+  `order` varchar(45) DEFAULT NULL,
+  `class` varchar(45) DEFAULT NULL,
+  `phylum` varchar(45) DEFAULT NULL,
+  `kingdom` varchar(50) DEFAULT NULL,
+  `provider_hints` varchar(255) DEFAULT NULL,
+  `provided_id` varchar(45) DEFAULT NULL COMMENT 'We do not know what type of identifiers are used by providers. Providers may refuse to provide their identifiers.',
+  `last_modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'timestamp of last changes',
+  `gsd_id` int(10) unsigned DEFAULT NULL,
+  `gsd_short_name` varchar(48) DEFAULT NULL,
+  `gsd_status` tinyint(1) DEFAULT NULL,
+  `gsd_comments` text COMMENT 'feedback from gsds',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+/* Feedback data for EBI */
+
+CREATE TABLE  `piping_tools`.`BOLD` (
+  `genus` varchar(45) NOT NULL,
+  `species_epithet` varchar(45) NOT NULL,
+  `infraspecies` varchar(50) DEFAULT NULL,
+  `infraspecies_marker` varchar(50) DEFAULT NULL,
+  `author_string` varchar(45) DEFAULT NULL,
+  `family` varchar(45) DEFAULT NULL,
+  `order` varchar(45) DEFAULT NULL,
+  `class` varchar(45) DEFAULT NULL,
+  `phylum` varchar(45) DEFAULT NULL,
+  `kingdom` varchar(50) DEFAULT NULL,
+  `provider_hints` varchar(255) DEFAULT NULL,
+  `provided_id` varchar(45) DEFAULT NULL COMMENT 'We do not know what type of identifiers are used by providers. Providers may refuse to provide their identifiers.',
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'timestamp of data entry',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+/* Input raw data from BOLD */
+
+CREATE TABLE  `piping_tools`.`BOLD_view` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'This id will be the same id in taxa table',
+  `genus` varchar(45) NOT NULL,
+  `species_epithet` varchar(45) NOT NULL,
+  `infraspecies` varchar(50) DEFAULT NULL,
+  `infraspecies_marker` varchar(50) DEFAULT NULL,
+  `author_string` varchar(45) DEFAULT NULL,
+  `family` varchar(45) DEFAULT NULL,
+  `order` varchar(45) DEFAULT NULL,
+  `class` varchar(45) DEFAULT NULL,
+  `phylum` varchar(45) DEFAULT NULL,
+  `kingdom` varchar(50) DEFAULT NULL,
+  `provider_hints` varchar(255) DEFAULT NULL,
+  `provided_id` varchar(45) DEFAULT NULL COMMENT 'We do not know what type of identifiers are used by providers. Providers may refuse to provide their identifiers.',
+  `last_modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'timestamp of last changes',
+  `gsd_id` int(10) unsigned DEFAULT NULL,
+  `gsd_short_name` varchar(48) DEFAULT NULL,
+  `gsd_status` tinyint(1) DEFAULT NULL,
+  `gsd_comments` text COMMENT 'feedback from gsds',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+/* Feedback data for BOLD */
+
+CREATE TABLE  `piping_tools`.`IUCN` (
+  `genus` varchar(45) NOT NULL,
+  `species_epithet` varchar(45) NOT NULL,
+  `infraspecies` varchar(50) DEFAULT NULL,
+  `infraspecies_marker` varchar(50) DEFAULT NULL,
+  `author_string` varchar(45) DEFAULT NULL,
+  `family` varchar(45) DEFAULT NULL,
+  `order` varchar(45) DEFAULT NULL,
+  `class` varchar(45) DEFAULT NULL,
+  `phylum` varchar(45) DEFAULT NULL,
+  `kingdom` varchar(50) DEFAULT NULL,
+  `provider_hints` varchar(255) DEFAULT NULL,
+  `provided_id` varchar(45) DEFAULT NULL COMMENT 'We do not know what type of identifiers are used by providers. Providers may refuse to provide their identifiers.',
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'timestamp of data entry',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+/* Input raw data from IUCN */
+
+CREATE TABLE  `piping_tools`.`IUCN_view` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'This id will be the same id in taxa table',
+  `genus` varchar(45) NOT NULL,
+  `species_epithet` varchar(45) NOT NULL,
+  `infraspecies` varchar(50) DEFAULT NULL,
+  `infraspecies_marker` varchar(50) DEFAULT NULL,
+  `author_string` varchar(45) DEFAULT NULL,
+  `family` varchar(45) DEFAULT NULL,
+  `order` varchar(45) DEFAULT NULL,
+  `class` varchar(45) DEFAULT NULL,
+  `phylum` varchar(45) DEFAULT NULL,
+  `kingdom` varchar(50) DEFAULT NULL,
+  `provider_hints` varchar(255) DEFAULT NULL,
+  `provided_id` varchar(45) DEFAULT NULL COMMENT 'We do not know what type of identifiers are used by providers. Providers may refuse to provide their identifiers.',
+  `last_modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'timestamp of last changes',
+  `gsd_id` int(10) unsigned DEFAULT NULL,
+  `gsd_short_name` varchar(48) DEFAULT NULL,
+  `gsd_status` tinyint(1) DEFAULT NULL,
+  `gsd_comments` text COMMENT 'feedback from gsds',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+/* Feedback data for IUCN */
+
+CREATE TABLE  `piping_tools`.`EDIT` (
+  `genus` varchar(45) NOT NULL,
+  `species_epithet` varchar(45) NOT NULL,
+  `infraspecies` varchar(50) DEFAULT NULL,
+  `infraspecies_marker` varchar(50) DEFAULT NULL,
+  `author_string` varchar(45) DEFAULT NULL,
+  `family` varchar(45) DEFAULT NULL,
+  `order` varchar(45) DEFAULT NULL,
+  `class` varchar(45) DEFAULT NULL,
+  `phylum` varchar(45) DEFAULT NULL,
+  `kingdom` varchar(50) DEFAULT NULL,
+  `provider_hints` varchar(255) DEFAULT NULL,
+  `provided_id` varchar(45) DEFAULT NULL COMMENT 'We do not know what type of identifiers are used by providers. Providers may refuse to provide their identifiers.',
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'timestamp of data entry',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+/* Input raw data from EDIT */
+
+CREATE TABLE  `piping_tools`.`EDIT_view` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'This id will be the same id in taxa table',
+  `genus` varchar(45) NOT NULL,
+  `species_epithet` varchar(45) NOT NULL,
+  `infraspecies` varchar(50) DEFAULT NULL,
+  `infraspecies_marker` varchar(50) DEFAULT NULL,
+  `author_string` varchar(45) DEFAULT NULL,
+  `family` varchar(45) DEFAULT NULL,
+  `order` varchar(45) DEFAULT NULL,
+  `class` varchar(45) DEFAULT NULL,
+  `phylum` varchar(45) DEFAULT NULL,
+  `kingdom` varchar(50) DEFAULT NULL,
+  `provider_hints` varchar(255) DEFAULT NULL,
+  `provided_id` varchar(45) DEFAULT NULL COMMENT 'We do not know what type of identifiers are used by providers. Providers may refuse to provide their identifiers.',
+  `last_modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'timestamp of last changes',
+  `gsd_id` int(10) unsigned DEFAULT NULL,
+  `gsd_short_name` varchar(48) DEFAULT NULL,
+  `gsd_status` tinyint(1) DEFAULT NULL,
+  `gsd_comments` text COMMENT 'feedback from gsds',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+/* Feedback data for EDIT */
+
+CREATE TABLE  `piping_tools`.`gsd4` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'This id will be the same id in taxa table',
+  `genus` varchar(45) NOT NULL,
+  `species_epithet` varchar(45) NOT NULL,
+  `infraspecies` varchar(50) DEFAULT NULL,
+  `infraspecies_marker` varchar(50) DEFAULT NULL,
+  `author_string` varchar(45) DEFAULT NULL,
+  `family` varchar(45) DEFAULT NULL,
+  `order_` varchar(45) DEFAULT NULL,
+  `class` varchar(45) DEFAULT NULL,
+  `phylum` varchar(45) DEFAULT NULL,
+  `kingdom` varchar(50) DEFAULT NULL,
+  `provider_hints` varchar(255) DEFAULT NULL,
+  `provided_id` varchar(45) DEFAULT NULL COMMENT 'We do not know what type of identifiers are used by providers. Providers may refuse to provide their identifiers.',
+  `last_modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'timestamp of last changes',
+  `gsd_status` tinyint(1) DEFAULT NULL,
+  `gsd_comments` text COMMENT 'feedback from gsds',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+/* Feedback data for gsd4 */
+
+/* \$Id: schema.sql,v 1.12 2011/02/08 14:43:56 kwok Exp kwok $ */
+@
+
+
+1.12
+log
+@add gsd_comments field for all GBPs_view table
+added gsd4 table for BIOS which has gsd_id=4
+@
+text
+@d279 1
+a279 1
+  `order` varchar(45) DEFAULT NULL,
+d292 1
+a292 1
+/* \$Id: schema.sql,v 1.11 2011/01/31 10:31:51 kwok Exp kwok $ */
+@
+
+
+1.11
+log
+@added GBIF_view, EBI_view, BOLD_view, IUCN_view and EDIT_view tables
+@
+text
+@d98 1
+d140 1
+d182 1
+d224 1
+d266 1
+d271 22
+a292 1
+/* \$Id: schema.sql,v 1.10 2011/01/19 14:46:53 kwok Exp kwok $ */
+@
+
+
+1.10
+log
+@changed from UICN to IUCN
+@
+text
+@d80 22
+d121 22
+d162 22
+d203 22
+d244 23
+a266 1
+/* \$Id: schema.sql,v 1.9 2011/01/19 14:39:25 kwok Exp kwok $ */
+@
+
+
+1.9
+log
+@added EBI, BOLD, UICN EDIT table
+@
+text
+@d118 1
+a118 1
+CREATE TABLE  `piping_tools`.`UICN` (
+d135 1
+a135 1
+/* Input raw data from UICN */
+d156 1
+a156 1
+/* \$Id: schema.sql,v 1.8 2011/01/19 14:23:35 kwok Exp kwok $ */
+@
+
+
+1.8
+log
+@move GBIF.id and GBIF.provided_id fields before GBIF.date field
+@
+text
+@d80 77
+a156 1
+/* \$Id: schema.sql,v 1.7 2011/01/17 12:55:38 kwok Exp kwok $ */
+@
+
+
+1.7
+log
+@edit GBIF table which mostly follows taxa table
+@
+text
+@a61 2
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `provided_id` varchar(45) DEFAULT NULL COMMENT 'We do not know what type of identifiers are used by providers. Providers may refuse to provide their identifiers.',
+d73 2
+d80 1
+a80 1
+/* \$Id: schema.sql,v 1.6 2011/01/17 12:10:51 kwok Exp kwok $ */
+@
+
+
+1.6
+log
+@change taxa.kingdom field to allow NULL
+@
+text
+@d63 13
+a75 2
+  `input_name` varchar(255) NOT NULL,
+  `inclusion_date` date NOT NULL,
+d80 1
+a80 1
+/* \$Id: schema.sql,v 1.5 2011/01/17 11:50:15 kwok Exp kwok $ */
+@
+
+
+1.5
+log
+@added GBIF table with id, input_name and inclusion_date fields
+@
+text
+@d13 1
+a13 1
+  `kingdom` varchar(50) NOT NULL,
+d69 1
+a69 1
+/* \$Id: schema.sql,v 1.4 2011/01/10 15:42:59 kwok Exp kwok $ */
+@
+
+
+1.4
+log
+@added `infraspecies` field in `taxa` table
+added `infraspecies_marker` field in `taxa` table
+added `kingdom` field in `taxa` table
+@
+text
+@d59 11
+a69 1
+/* \$Id: schema.sql,v 1.3 2011/01/07 09:46:49 kwok Exp kwok $ */
+@
+
+
+1.3
+log
+@Changed gsds table gsd_short_name field from varchar(8) to varchar(48)
+@
+text
+@d6 2
+d13 1
+d59 1
+a59 1
+/* \$Id$ */
+@
+
+
+1.2
+log
+@Corrected the first line by adding "CREATE TABLE "
+@
+text
+@d28 1
+a28 1
+  `gsd_short_name` varchar(8) NOT NULL COMMENT 'i.e. abreviation',
+d56 1
+@
+
+
+1.1
+log
+@Initial revision
+@
+text
+@d1 1
+a1 1
+`piping_tools`.`taxa` (
+d55 1
+a55 1
+/*Table stores list of providers of species name lists (GBIF, EOL, etc)*/@

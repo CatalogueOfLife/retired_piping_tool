@@ -1,0 +1,32 @@
+head	1.1;
+access;
+symbols;
+locks; strict;
+comment	@# @;
+
+
+1.1
+date	2011.06.03.09.46.03;	author kwok;	state Exp;
+branches;
+next	;
+
+
+desc
+@first draft
+@
+
+
+1.1
+log
+@Initial revision
+@
+text
+@{* colour line *}
+{* $Id$ *}
+<tr>
+<td width = "270" height = "5" style = 'background-color: #8BC0E0;'></td>
+<td width = "30%" height = "5" style = 'background-color: #EAE464;'></td>
+<td width = "30%" height = "5" style = 'background-color: #D85640;'></td>
+<td width = "30%" height = "5" style = 'background-color: #00B050;'></td>
+</tr>
+@
