@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<rss version="2.0">
+
+
+<channel>
+<title>Catalogue of Life - Piping Tool Updates</title>
+<description>Name Update Notification service for Global Providers and Global Biodiversity Databases</description>
+<link>http://www.catalogueoflife.org/piping</link>
+
+<item>
+<title>Recent Updates</title>
+<description>Description goes here, e.g. Fishbase Pipe has been updated.</description>
+<link>/piping/webservice/gsd/FishBase/</link>
+<pubDate>15 Jun 2012</pubDate>
+</item>
+
+<item>
+<title>Recent Updates</title>
+<description>Description goes here, e.g. Fishbase Pipe has been updated.</description>
+<link>/piping/webservice/gsd/WoRMS_Scaphopoda/</link>
+<pubDate>14 Jun 2012</pubDate>
+</item>
+
+</channel>
+</rss>

@@ -1,0 +1,19 @@
+# default order: descending by name
+    IndexOrderDefault Descending Name
+    # set the following options:
+    # - ignore case
+    # - don't display the description column
+    # - display folders first
+    # - set the width of the name column to 40 chars
+    # - don't display the default HTML output (doctype, head, ..., starting <body> tag)
+    # - use Fancy Indexing
+    # - set IconHeight und Width to 16 pixels (FamFams Icons use these dimensions)
+    IndexOptions +IgnoreCase +SuppressDescription +SuppressLastModified +FoldersFirst +NameWidth=40 -SuppressHTMLPreamble +FancyIndexing +SuppressIcon +SuppressSize +SuppressRules +TrackModified
+    # we want to use indexes for this folder!
+    Options +Indexes
+    # the header template, which is displayed before the list
+    HeaderName ./styles/header.html
+    # the footer template, which is displayed after the list
+    ReadmeName ./styles/footer.html
+    # don't display the link to the /styles folder
+    IndexIgnore ./styles ..
