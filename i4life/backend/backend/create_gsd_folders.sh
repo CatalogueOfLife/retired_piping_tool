@@ -1,242 +1,351 @@
 rm -r ../webservice/gsd/* ;
-rm -r ../webservice/gbp/* ;
 mkdir ../webservice/gsd/3i_Cicadellinae; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/3i_Cicadellinae/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/3i_Cicadellinae/;
+
 mkdir ../webservice/gsd/3i_Typhlocybinae; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/3i_Typhlocybinae/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/3i_Typhlocybinae/;
+
 mkdir ../webservice/gsd/AFD_Pulmonata; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/AFD_Pulmonata/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/AFD_Pulmonata/;
+
 mkdir ../webservice/gsd/AlgaeBase; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/AlgaeBase/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/AlgaeBase/;
+
 mkdir ../webservice/gsd/AnnonBase; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/AnnonBase/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/AnnonBase/;
+
 mkdir ../webservice/gsd/AphidSF; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/AphidSF/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/AphidSF/;
-mkdir ../webservice/gsd/BdelloideaBase; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/BdelloideaBase/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/BdelloideaBase/;
+
 mkdir ../webservice/gsd/BIOS; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/BIOS/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/BIOS/;
+
+mkdir ../webservice/gsd/BdelloideaBase; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/BdelloideaBase/;
+
 mkdir ../webservice/gsd/BlattodeaSF; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/BlattodeaSF/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/BlattodeaSF/;
+
 mkdir ../webservice/gsd/Brassicaceae; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/Brassicaceae/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/Brassicaceae/;
+
 mkdir ../webservice/gsd/CCW; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/CCW/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/CCW/;
-mkdir ../webservice/gsd/ChenoBase; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/ChenoBase/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/ChenoBase/;
-mkdir ../webservice/gsd/ChiloBase; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/ChiloBase/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/ChiloBase/;
-mkdir ../webservice/gsd/CilCat; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/CilCat/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/CilCat/;
+
 mkdir ../webservice/gsd/CIPA; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/CIPA/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/CIPA/;
-mkdir ../webservice/gsd/Conifer_Database; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/Conifer_Database/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/Conifer_Database/;
+
 mkdir ../webservice/gsd/COOL; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/COOL/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/COOL/;
+
+mkdir ../webservice/gsd/ChenoBase; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/ChenoBase/;
+
+mkdir ../webservice/gsd/ChiloBase; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/ChiloBase/;
+
+mkdir ../webservice/gsd/CilCat; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/CilCat/;
+
+mkdir ../webservice/gsd/Conifer_Database; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/Conifer_Database/;
+
 mkdir ../webservice/gsd/Dothideomycetes; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/Dothideomycetes/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/Dothideomycetes/;
+
 mkdir ../webservice/gsd/Droseraceae_Database; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/Droseraceae_Database/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/Droseraceae_Database/;
-mkdir ../webservice/gsd/EbenaBase; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/EbenaBase/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/EbenaBase/;
+
 mkdir ../webservice/gsd/ELPT; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/ELPT/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/ELPT/;
-mkdir ../webservice/gsd/EmbiopteraSF; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/EmbiopteraSF/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/EmbiopteraSF/;
+
 mkdir ../webservice/gsd/ETI_WBD_Euphausiacea; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/ETI_WBD_Euphausiacea/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/ETI_WBD_Euphausiacea/;
-mkdir ../webservice/gsd/FishBase; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/FishBase/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/FishBase/;
+
+mkdir ../webservice/gsd/EbenaBase; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/EbenaBase/;
+
+mkdir ../webservice/gsd/EmbiopteraSF; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/EmbiopteraSF/;
+
 mkdir ../webservice/gsd/FLOW; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/FLOW/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/FLOW/;
+
 mkdir ../webservice/gsd/FWCrabs; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/FWCrabs/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/FWCrabs/;
+
+mkdir ../webservice/gsd/FishBase; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/FishBase/;
+
 mkdir ../webservice/gsd/GCC; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/GCC/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/GCC/;
+
 mkdir ../webservice/gsd/GloBIS_GART; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/GloBIS_GART/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/GloBIS_GART/;
+
 mkdir ../webservice/gsd/Glomeromycota; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/Glomeromycota/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/Glomeromycota/;
+
 mkdir ../webservice/gsd/Hexacorals; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/Hexacorals/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/Hexacorals/;
+
 mkdir ../webservice/gsd/ICTV_MSL; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/ICTV_MSL/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/ICTV_MSL/;
+
 mkdir ../webservice/gsd/ILDIS; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/ILDIS/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/ILDIS/;
+
 mkdir ../webservice/gsd/IOPI_GPC; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/IOPI_GPC/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/IOPI_GPC/;
+
 mkdir ../webservice/gsd/ITIS_Bees; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/ITIS_Bees/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/ITIS_Bees/;
+
 mkdir ../webservice/gsd/ITIS_Global; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/ITIS_Global/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/ITIS_Global/;
+
 mkdir ../webservice/gsd/ITIS_Regional; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/ITIS_Regional/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/ITIS_Regional/;
+
 mkdir ../webservice/gsd/LDL_Neuropterida; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/LDL_Neuropterida/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/LDL_Neuropterida/;
-mkdir ../webservice/gsd/LecyPages; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/LecyPages/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/LecyPages/;
-mkdir ../webservice/gsd/LepIndex; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/LepIndex/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/LepIndex/;
+
 mkdir ../webservice/gsd/LHD; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/LHD/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/LHD/;
+
 mkdir ../webservice/gsd/LIAS; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/LIAS/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/LIAS/;
-mkdir ../webservice/gsd/MantodeaSF; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/MantodeaSF/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/MantodeaSF/;
+
+mkdir ../webservice/gsd/LecyPages; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/LecyPages/;
+
+mkdir ../webservice/gsd/LepIndex; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/LepIndex/;
+
 mkdir ../webservice/gsd/MBB; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/MBB/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/MBB/;
+
 mkdir ../webservice/gsd/MELnet; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/MELnet/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/MELnet/;
+
 mkdir ../webservice/gsd/MOST; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/MOST/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/MOST/;
+
 mkdir ../webservice/gsd/MOWD; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/MOWD/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/MOWD/;
-mkdir ../webservice/gsd/Nomen_eumycetozoa_com; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/Nomen_eumycetozoa_com/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/Nomen_eumycetozoa_com/;
+
+mkdir ../webservice/gsd/MantodeaSF; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/MantodeaSF/;
+
 mkdir ../webservice/gsd/NZIB; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/NZIB/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/NZIB/;
+
+mkdir ../webservice/gsd/Nomen_eumycetozoa_com; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/Nomen_eumycetozoa_com/;
+
 mkdir ../webservice/gsd/Odonata; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/Odonata/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/Odonata/;
+
 mkdir ../webservice/gsd/OlogamasidBase; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/OlogamasidBase/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/OlogamasidBase/;
+
 mkdir ../webservice/gsd/OrthopteraSF; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/OrthopteraSF/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/OrthopteraSF/;
+
 mkdir ../webservice/gsd/Parhost; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/Parhost/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/Parhost/;
+
 mkdir ../webservice/gsd/PhasmidaSF; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/PhasmidaSF/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/PhasmidaSF/;
+
 mkdir ../webservice/gsd/Phyllachorales; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/Phyllachorales/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/Phyllachorales/;
+
 mkdir ../webservice/gsd/PhytoseiidBase; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/PhytoseiidBase/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/PhytoseiidBase/;
+
 mkdir ../webservice/gsd/PlecopteraSF; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/PlecopteraSF/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/PlecopteraSF/;
+
 mkdir ../webservice/gsd/Psyllist; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/Psyllist/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/Psyllist/;
-mkdir ../webservice/gsd/RhodacaridBase; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/RhodacaridBase/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/RhodacaridBase/;
-mkdir ../webservice/gsd/Rhytismatales; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/Rhytismatales/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/Rhytismatales/;
+
 mkdir ../webservice/gsd/RJB_Geranium; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/RJB_Geranium/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/RJB_Geranium/;
+
+mkdir ../webservice/gsd/RhodacaridBase; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/RhodacaridBase/;
+
+mkdir ../webservice/gsd/Rhytismatales; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/Rhytismatales/;
+
 mkdir ../webservice/gsd/Rotifera; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/Rotifera/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/Rotifera/;
+
 mkdir ../webservice/gsd/Saccharomycetes; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/Saccharomycetes/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/Saccharomycetes/;
+
 mkdir ../webservice/gsd/SalticidDB; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/SalticidDB/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/SalticidDB/;
+
 mkdir ../webservice/gsd/ScaleNet; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/ScaleNet/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/ScaleNet/;
+
 mkdir ../webservice/gsd/Scarabs; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/Scarabs/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/Scarabs/;
+
 mkdir ../webservice/gsd/Solanaceae_Source; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/Solanaceae_Source/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/Solanaceae_Source/;
+
 mkdir ../webservice/gsd/Species_2000_Common_Names; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/Species_2000_Common_Names/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/Species_2000_Common_Names/;
+
 mkdir ../webservice/gsd/Species_Fungorum; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/Species_Fungorum/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/Species_Fungorum/;
-mkdir ../webservice/gsd/SpidCat; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/SpidCat/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/SpidCat/;
+
+mkdir ../webservice/gsd/SpidCat_via_ITIS; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/SpidCat_via_ITIS/;
+
 mkdir ../webservice/gsd/SpmWeb; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/SpmWeb/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/SpmWeb/;
+
 mkdir ../webservice/gsd/Strepsiptera_Database; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/Strepsiptera_Database/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/Strepsiptera_Database/;
+
 mkdir ../webservice/gsd/SysMyr; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/SysMyr/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/SysMyr/;
+
 mkdir ../webservice/gsd/Systema_Dipterorum; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/Systema_Dipterorum/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/Systema_Dipterorum/;
-mkdir ../webservice/gsd/Taxapad_Ichneumonoidea; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/Taxapad_Ichneumonoidea/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/Taxapad_Ichneumonoidea/;
-mkdir ../webservice/gsd/TenuipalpidBase; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/TenuipalpidBase/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/TenuipalpidBase/;
-mkdir ../webservice/gsd/TicksBase; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/TicksBase/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/TicksBase/;
+
 mkdir ../webservice/gsd/TIGR_Reptiles; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/TIGR_Reptiles/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/TIGR_Reptiles/;
-mkdir ../webservice/gsd/Tineidae_NHM; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/Tineidae_NHM/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/Tineidae_NHM/;
+
 mkdir ../webservice/gsd/TITAN; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/TITAN/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/TITAN/;
+
+mkdir ../webservice/gsd/Taxapad_Ichneumonoidea; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/Taxapad_Ichneumonoidea/;
+
+mkdir ../webservice/gsd/TenuipalpidBase; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/TenuipalpidBase/;
+
+mkdir ../webservice/gsd/TicksBase; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/TicksBase/;
+
+mkdir ../webservice/gsd/Tineidae_NHM; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/Tineidae_NHM/;
+
 mkdir ../webservice/gsd/Trichomycetes; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/Trichomycetes/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/Trichomycetes/;
+
 mkdir ../webservice/gsd/UCD; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/UCD/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/UCD/;
+
 mkdir ../webservice/gsd/URMO; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/URMO/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/URMO/;
+
 mkdir ../webservice/gsd/WCSP; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/WCSP/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/WCSP/;
-mkdir ../webservice/gsd/World_Gracillariidae; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/World_Gracillariidae/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/World_Gracillariidae/;
-mkdir ../webservice/gsd/World_Umbellifer_Database; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/World_Umbellifer_Database/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/World_Umbellifer_Database/;
-mkdir ../webservice/gsd/WoRMS_Asteroidea; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/WoRMS_Asteroidea/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/WoRMS_Asteroidea/;
-mkdir ../webservice/gsd/WoRMS_Bochusacea; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/WoRMS_Bochusacea/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/WoRMS_Bochusacea/;
-mkdir ../webservice/gsd/WoRMS_Brachiopoda; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/WoRMS_Brachiopoda/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/WoRMS_Brachiopoda/;
-mkdir ../webservice/gsd/WoRMS_Brachypoda; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/WoRMS_Brachypoda/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/WoRMS_Brachypoda/;
-mkdir ../webservice/gsd/WoRMS_Brachyura; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/WoRMS_Brachyura/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/WoRMS_Brachyura/;
-mkdir ../webservice/gsd/WoRMS_Bryozoa; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/WoRMS_Bryozoa/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/WoRMS_Bryozoa/;
-mkdir ../webservice/gsd/WoRMS_Cumacea; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/WoRMS_Cumacea/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/WoRMS_Cumacea/;
-mkdir ../webservice/gsd/WoRMS_Echinoidea; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/WoRMS_Echinoidea/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/WoRMS_Echinoidea/;
-mkdir ../webservice/gsd/WoRMS_Holothuroidea; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/WoRMS_Holothuroidea/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/WoRMS_Holothuroidea/;
-mkdir ../webservice/gsd/WoRMS_Hydrozoa; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/WoRMS_Hydrozoa/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/WoRMS_Hydrozoa/;
-mkdir ../webservice/gsd/WoRMS_Isopoda; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/WoRMS_Isopoda/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/WoRMS_Isopoda/;
-mkdir ../webservice/gsd/WoRMS_Leptostraca; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/WoRMS_Leptostraca/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/WoRMS_Leptostraca/;
-mkdir ../webservice/gsd/WoRMS_Mystacocarida; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/WoRMS_Mystacocarida/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/WoRMS_Mystacocarida/;
-mkdir ../webservice/gsd/WoRMS_Nemertea; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/WoRMS_Nemertea/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/WoRMS_Nemertea/;
-mkdir ../webservice/gsd/WoRMS_Oligochaeta; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/WoRMS_Oligochaeta/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/WoRMS_Oligochaeta/;
-mkdir ../webservice/gsd/WoRMS_Ophiuroidea; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/WoRMS_Ophiuroidea/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/WoRMS_Ophiuroidea/;
-mkdir ../webservice/gsd/WoRMS_Phoronida; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/WoRMS_Phoronida/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/WoRMS_Phoronida/;
-mkdir ../webservice/gsd/WoRMS_Polychaeta; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/WoRMS_Polychaeta/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/WoRMS_Polychaeta/;
-mkdir ../webservice/gsd/WoRMS_Polycystina; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/WoRMS_Polycystina/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/WoRMS_Polycystina/;
-mkdir ../webservice/gsd/WoRMS_Porifera; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/WoRMS_Porifera/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/WoRMS_Porifera/;
-mkdir ../webservice/gsd/WoRMS_Proseriata_Kalyptorhynchia; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/WoRMS_Proseriata_Kalyptorhynchia/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/WoRMS_Proseriata_Kalyptorhynchia/;
-mkdir ../webservice/gsd/WoRMS_Remipedia; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/WoRMS_Remipedia/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/WoRMS_Remipedia/;
-mkdir ../webservice/gsd/WoRMS_Scaphopoda; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/WoRMS_Scaphopoda/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/WoRMS_Scaphopoda/;
-mkdir ../webservice/gsd/WoRMS_Tanaidacea; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/WoRMS_Tanaidacea/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/WoRMS_Tanaidacea/;
-mkdir ../webservice/gsd/WoRMS_Tantulocarida; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/WoRMS_Tantulocarida/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/WoRMS_Tantulocarida/;
-mkdir ../webservice/gsd/WoRMS_Thermosbaenacea; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/WoRMS_Thermosbaenacea/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/WoRMS_Thermosbaenacea/;
-mkdir ../webservice/gsd/WoRMS_Xenoturbellida; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/WoRMS_Xenoturbellida/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/WoRMS_Xenoturbellida/;
+
 mkdir ../webservice/gsd/WTaxa; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/WTaxa/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/WTaxa/;
+
+mkdir ../webservice/gsd/WoRMS_Asteroidea; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/WoRMS_Asteroidea/;
+
+mkdir ../webservice/gsd/WoRMS_Bochusacea; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/WoRMS_Bochusacea/;
+
+mkdir ../webservice/gsd/WoRMS_Brachiopoda; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/WoRMS_Brachiopoda/;
+
+mkdir ../webservice/gsd/WoRMS_Brachypoda; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/WoRMS_Brachypoda/;
+
+mkdir ../webservice/gsd/WoRMS_Brachyura; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/WoRMS_Brachyura/;
+
+mkdir ../webservice/gsd/WoRMS_Bryozoa; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/WoRMS_Bryozoa/;
+
+mkdir ../webservice/gsd/WoRMS_Cumacea; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/WoRMS_Cumacea/;
+
+mkdir ../webservice/gsd/WoRMS_Echinoidea; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/WoRMS_Echinoidea/;
+
+mkdir ../webservice/gsd/WoRMS_Holothuroidea; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/WoRMS_Holothuroidea/;
+
+mkdir ../webservice/gsd/WoRMS_Hydrozoa; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/WoRMS_Hydrozoa/;
+
+mkdir ../webservice/gsd/WoRMS_Isopoda; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/WoRMS_Isopoda/;
+
+mkdir ../webservice/gsd/WoRMS_Leptostraca; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/WoRMS_Leptostraca/;
+
+mkdir ../webservice/gsd/WoRMS_Mystacocarida; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/WoRMS_Mystacocarida/;
+
+mkdir ../webservice/gsd/WoRMS_Nemertea; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/WoRMS_Nemertea/;
+
+mkdir ../webservice/gsd/WoRMS_Oligochaeta; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/WoRMS_Oligochaeta/;
+
+mkdir ../webservice/gsd/WoRMS_Ophiuroidea; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/WoRMS_Ophiuroidea/;
+
+mkdir ../webservice/gsd/WoRMS_Phoronida; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/WoRMS_Phoronida/;
+
+mkdir ../webservice/gsd/WoRMS_Polychaeta; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/WoRMS_Polychaeta/;
+
+mkdir ../webservice/gsd/WoRMS_Polycystina; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/WoRMS_Polycystina/;
+
+mkdir ../webservice/gsd/WoRMS_Porifera; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/WoRMS_Porifera/;
+
+mkdir ../webservice/gsd/WoRMS_Proseriata_Kalyptorhynchia; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/WoRMS_Proseriata_Kalyptorhynchia/;
+
+mkdir ../webservice/gsd/WoRMS_Remipedia; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/WoRMS_Remipedia/;
+
+mkdir ../webservice/gsd/WoRMS_Scaphopoda; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/WoRMS_Scaphopoda/;
+
+mkdir ../webservice/gsd/WoRMS_Tanaidacea; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/WoRMS_Tanaidacea/;
+
+mkdir ../webservice/gsd/WoRMS_Tantulocarida; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/WoRMS_Tantulocarida/;
+
+mkdir ../webservice/gsd/WoRMS_Thermosbaenacea; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/WoRMS_Thermosbaenacea/;
+
+mkdir ../webservice/gsd/WoRMS_Xenoturbellida; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/WoRMS_Xenoturbellida/;
+
+mkdir ../webservice/gsd/World_Gracillariidae; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/World_Gracillariidae/;
+
+mkdir ../webservice/gsd/World_Umbellifer_Database; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/World_Umbellifer_Database/;
+
 mkdir ../webservice/gsd/Xylariaceae; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/Xylariaceae/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/Xylariaceae/;
+
 mkdir ../webservice/gsd/ZOBODAT_Vespoidea; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/ZOBODAT_Vespoidea/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/ZOBODAT_Vespoidea/;
+
 mkdir ../webservice/gsd/Zygomycetes; #cp -p ../shell/skel/new_gsd/piping.txt ../webservice/gsd/Zygomycetes/;
- cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/Zygomycetes/;
+
 mkdir ../webservice/gsd/protoGSD; cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/protoGSD/;
-mkdir ../webservice/gbp/ENA; cp -rp ../shell/skel/new_gbp/* ../webservice/gbp/ENA/;
-mkdir ../webservice/gbp/CBOL; cp -rp ../shell/skel/new_gbp/* ../webservice/gbp/CBOL/;
-mkdir ../webservice/gbp/GBIF; cp -rp ../shell/skel/new_gbp/* ../webservice/gbp/GBIF/;
-mkdir ../webservice/gbp/IUCN; cp -rp ../shell/skel/new_gbp/* ../webservice/gbp/IUCN/;
-mkdir ../webservice/gbp/Mycobank; cp -rp ../shell/skel/new_gbp/* ../webservice/gbp/Mycobank/;
 find ../webservice/gsd -type d -print0 | xargs -0 chmod 777;
-find ../webservice/gbp -type d -print0 | xargs -0 chmod 777;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/3i_Cicadellinae/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/3i_Typhlocybinae/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/AFD_Pulmonata/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/AlgaeBase/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/AnnonBase/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/AphidSF/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/BIOS/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/BdelloideaBase/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/BlattodeaSF/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/Brassicaceae/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/CCW/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/CIPA/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/COOL/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/ChenoBase/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/ChiloBase/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/CilCat/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/Conifer_Database/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/Dothideomycetes/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/Droseraceae_Database/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/ELPT/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/ETI_WBD_Euphausiacea/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/EbenaBase/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/EmbiopteraSF/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/FLOW/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/FWCrabs/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/FishBase/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/GCC/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/GloBIS_GART/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/Glomeromycota/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/Hexacorals/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/ICTV_MSL/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/ILDIS/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/IOPI_GPC/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/ITIS_Bees/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/ITIS_Global/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/ITIS_Regional/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/LDL_Neuropterida/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/LHD/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/LIAS/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/LecyPages/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/LepIndex/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/MBB/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/MELnet/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/MOST/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/MOWD/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/MantodeaSF/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/NZIB/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/Nomen_eumycetozoa_com/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/Odonata/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/OlogamasidBase/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/OrthopteraSF/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/Parhost/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/PhasmidaSF/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/Phyllachorales/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/PhytoseiidBase/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/PlecopteraSF/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/Psyllist/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/RJB_Geranium/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/RhodacaridBase/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/Rhytismatales/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/Rotifera/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/Saccharomycetes/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/SalticidDB/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/ScaleNet/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/Scarabs/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/Solanaceae_Source/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/Species_2000_Common_Names/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/Species_Fungorum/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/SpidCat_via_ITIS/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/SpmWeb/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/Strepsiptera_Database/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/SysMyr/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/Systema_Dipterorum/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/TIGR_Reptiles/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/TITAN/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/Taxapad_Ichneumonoidea/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/TenuipalpidBase/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/TicksBase/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/Tineidae_NHM/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/Trichomycetes/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/UCD/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/URMO/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/WCSP/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/WTaxa/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/WoRMS_Asteroidea/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/WoRMS_Bochusacea/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/WoRMS_Brachiopoda/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/WoRMS_Brachypoda/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/WoRMS_Brachyura/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/WoRMS_Bryozoa/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/WoRMS_Cumacea/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/WoRMS_Echinoidea/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/WoRMS_Holothuroidea/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/WoRMS_Hydrozoa/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/WoRMS_Isopoda/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/WoRMS_Leptostraca/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/WoRMS_Mystacocarida/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/WoRMS_Nemertea/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/WoRMS_Oligochaeta/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/WoRMS_Ophiuroidea/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/WoRMS_Phoronida/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/WoRMS_Polychaeta/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/WoRMS_Polycystina/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/WoRMS_Porifera/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/WoRMS_Proseriata_Kalyptorhynchia/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/WoRMS_Remipedia/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/WoRMS_Scaphopoda/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/WoRMS_Tanaidacea/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/WoRMS_Tantulocarida/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/WoRMS_Thermosbaenacea/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/WoRMS_Xenoturbellida/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/World_Gracillariidae/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/World_Umbellifer_Database/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/Xylariaceae/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/ZOBODAT_Vespoidea/;
+ cp -p ../shell/skel/new_gsd/.htaccess ../webservice/gsd/Zygomycetes/;

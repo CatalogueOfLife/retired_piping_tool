@@ -72,4 +72,4 @@ SELECT 'CREATE TABLE IF NOT EXISTS protoGSD (`id` int(10) unsigned NOT NULL,
  `taxonRank` varchar(24) COLLATE utf8_general_ci DEFAULT NULL, 
 `matched_by` varchar(8) COLLATE utf8_general_ci DEFAULT NULL,
  PRIMARY KEY (`id`)) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;'
-INTO OUTFILE '/var/www/piping2012/misc/create_pipeline_tables.sql' FIELDS TERMINATED BY '\t' LINES TERMINATED BY '\n';
+INTO OUTFILE '/var/www/piping/backend/create_pipeline_tables.sql' FIELDS TERMINATED BY '\t' ESCAPED BY '' LINES TERMINATED BY '\n';

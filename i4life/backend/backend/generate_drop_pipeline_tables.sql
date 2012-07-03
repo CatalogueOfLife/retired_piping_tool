@@ -9,4 +9,4 @@ FROM `databases` db
 GROUP BY db.database_name 
 UNION
 SELECT 'DROP TABLE IF EXISTS protoGSD;'
-INTO OUTFILE '/var/www/piping2012/misc/drop_pipeline_tables.sql' FIELDS TERMINATED BY '\t' LINES TERMINATED BY '\n';
+INTO OUTFILE '/var/www/piping/backend/drop_pipeline_tables.sql' FIELDS TERMINATED BY '\t' LINES TERMINATED BY '\n';

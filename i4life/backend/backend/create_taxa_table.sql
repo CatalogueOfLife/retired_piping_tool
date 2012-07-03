@@ -1,4 +1,4 @@
-CREATE TABLE `taxa_new` ( `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+CREATE TABLE `taxa` ( `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
  `taxonID` varchar(12) COLLATE utf8_bin DEFAULT NULL,
  `genus` varchar(255) COLLATE utf8_general_ci NOT NULL,
  `specificEpithet` varchar(255) COLLATE utf8_general_ci NOT NULL,
@@ -30,6 +30,13 @@ CREATE TABLE `taxa_new` ( `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
  `taxonRank` varchar(24) COLLATE utf8_general_ci DEFAULT NULL,
  `in_col` tinyint(1) unsigned DEFAULT NULL,
  `matched_by` varchar(8) COLLATE utf8_general_ci DEFAULT NULL,
- PRIMARY KEY (`id`), KEY `scientificName10` (`scientificName`(10)), KEY `genera` (`genus`), KEY `families` (`family`), KEY `orders` (`order`), KEY `classes` (`class`), KEY `phyla` (`phylum`) ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+ PRIMARY KEY (`id`), 
+ KEY `scientificName10` (`scientificName`(10)), 
+KEY `genera` (`genus`), 
+KEY `families` (`family`), 
+KEY `orders` (`order`), 
+KEY `classes` (`class`), 
+KEY `phyla` (`phylum`) )
+ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 
