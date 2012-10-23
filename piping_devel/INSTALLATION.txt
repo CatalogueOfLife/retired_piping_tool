@@ -1,0 +1,198 @@
+Software requirements:
+----------------------
+PHP version: 5.3.3-7
+Smarty version: 3.1.11
+MySQL version: 5.1.6
+Apache version: 2.2.16
+Debian-linux-gnu version: 6.0
+
+1. Create directories and copy files
+------------------------------------
+Root dir: e.g. /var/www/piping_devel/ 
+Here we name it as piping_devel in this example, but
+change to whatever that suit you. And we will continue
+call it as piping_devel in this installation instruction.
+
+Create these directories under root
+	php 
+	shell
+	webservice
+
+	php/debug
+	php/cache
+	php/configs
+	php/include
+	php/log
+	php/mysql
+	php/pics
+	php/templates
+	php/templates_c
+
+	shell/skel
+	shell/skel/new_gbp
+	shell/skel/new_gsd
+
+	webservice/gbp
+	webservice/gsd
+	webservice/rss
+
+	admin
+	BOLD
+	CBOL
+	ENA
+	GBIF
+	IUCN
+	Mycobank
+
+2. Copy files into php directory
+--------------------------------
+	bold_upload.php
+	change_psword.php
+	disclaimer
+	dwc.php
+	help.php
+	index.php
+	logout.php
+	scheduler.php
+	scheduler_pmonit.php
+	setting.php
+	setup.php
+	style.css
+	tagDelete.php
+	taxa.php
+	upload.php
+	user_list.php
+	user_pw.php
+	xmap_upload.php
+
+3. Copy files into php/include directory
+----------------------------------------
+	db.php
+	dwcLib.php
+	objects.php
+
+4. Copy files into php/pics directory
+-------------------------------------
+	i4life_logo_sm.jpg
+	left.gif
+	right.gif
+
+5. Copy files into php/templates directory
+------------------------------------------
+	bold_upload.tpl
+	change_psword.tpl
+	colour_line.tpl
+	dwc.tpl
+	header.tpl
+	help.tpl
+	index.tpl
+	master.tpl
+	server_files.tpl
+	setting.tpl
+	tagDelete.tpl
+	taxa.tpl
+	upload.tpl
+	user_list.tpl
+	xmap_upload.tpl
+
+6. Copy files into php/mysql directory
+--------------------------------------
+	piping.sql
+	initialize_db.sh
+
+7. Edit files in php/mysql directory
+------------------------------------
+Change both piping.sql and initialize_db.sh to the appropriate database name.
+For initialize_db.sh also change to appropriate database username and password
+
+8. Run initialize_db.sh in php/mysql directory
+-------------------------------------------
+$ ./initialize_db.sh
+This will create all the Piping Tools tables in databases.
+
+9. Edit php/include/db.php 
+--------------------------
+Change:
+	$DB_username		= "username";
+	$DB_password		= "password";
+	$DB_databasename	= "databasename";
+
+	$CoL_databasename	= "databasename";
+
+to appropriate value strings
+
+10. Edit php/setup.php 
+----------------------
+Change to correct paths, filenames and URLs:
+
+// define Smarty lib directory
+define ('SMARTY_DIR', '/usr/local/lib/php/Smarty/');
+
+// define server root directory
+define ('ROOT_DIR', '/var/www/piping_devel/php');
+
+// define user's base directory
+define ('USER_BASE_DIR', '/var/www/piping_devel/');
+
+// define mysqlScripts directory which store automatic generated
+// scripts for piping
+define ('MYSQLSCRIPTS', '/var/www/piping_devel/php/mysql/');
+
+// define GSD webservice directory
+define ('GSD_WEB', '/var/www/piping_devel/webservice/gsd/');
+
+// define GSD prototype directory
+define ('GSD_WEB_PROTO', '/var/www/piping_devel/shell/skel/new_gsd/');
+
+// define GBP webservice directory
+define ('GBP_WEB', '/var/www/piping_devel/webservice/gbp/');
+
+// define GBP prototype directory
+define ('GBP_WEB_PROTO', '/var/www/piping_devel/shell/skel/new_gbp/');
+
+// define RSS webservice directory
+define ('RSS_WEB', '/var/www/piping_devel/webservice/rss/');
+
+// define scheduler debug file and path
+define ('DEBUG', '/var/www/piping_devel/php/debug/debug.txt');
+
+// define scheduler log file and path
+define ('LOG', '/var/www/piping_devel/php/log/scheduler.log');
+
+// define scheduler log file URL. dummy GET parameter added to bypass cache
+define ('LOG_URL', 'http://salx9-vm9.rdg.ac.uk/piping_devel/log/scheduler.log?dummy');
+
+// define scheduler_pmonit debug file and path
+define ('DEBUG_PM', '/var/www/piping_devel/php/debug/debug_pm.txt');
+
+// define scheduler_pmonit log file and path
+define ('LOG_PM', '/var/www/piping_devel/php/log/scheduler_pm.log');
+
+// define scheduler_pmonit log file URL. dummy GET parameter added to
+// bypass cache
+define ('LOG_PM_URL', 'http://salx9-vm9.rdg.ac.uk/piping_devel/log/scheduler_pm.log?dummy');
+
+11. Copy files into shell/skel/new_gsd directory
+------------------------------------------------
+	.htaccess
+
+12. Copy files into shell/skel/new_gbp directory
+------------------------------------------------
+	.htaccess
+
+13. Change owner and group for all directories and files under server root
+--------------------------------------------------------------------------
+e.g.
+$ sudo chown -R www-data:www-data *
+
+14. Change setting of php.ini file
+----------------------------------
+The file likely in /etc/php5/apache2/php.ini
+
+Set the following:
+post_max_size = 1G
+upload_max_filesizse = 1G
+maximum execution time = 3000
+
+might have to change other errors reporting options as well
+to suppress errors notices.
