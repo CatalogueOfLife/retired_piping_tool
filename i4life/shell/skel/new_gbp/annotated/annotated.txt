@@ -1,1 +1,0 @@
-This provides a part of the dataset from Global Biodiversity Partner limited to annotated records only

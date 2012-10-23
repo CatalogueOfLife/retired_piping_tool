@@ -1,1 +1,0 @@
-Make new_gbp and new_gsd directories writeable by www-data.

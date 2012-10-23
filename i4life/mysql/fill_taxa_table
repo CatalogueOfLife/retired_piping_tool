@@ -1,6 +1,0 @@
-mysql -ukwok -pwork pro_piping_tools -e \
-"LOAD DATA LOCAL INFILE '$HOME/data/taxa_data1.csv' INTO TABLE taxa \
-FIELDS TERMINATED BY ',' \
-OPTIONALLY ENCLOSED BY '\"' \
-(genus, species_epithet, infraspecies, infraspecies_marker, author_string, \
-family, \`order\`, class, phylum, kingdom)"
