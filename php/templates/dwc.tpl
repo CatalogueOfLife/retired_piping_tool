@@ -6,7 +6,7 @@
 {*******************************}
 {* display setting option form *}
 {*******************************}
-<form action='dwc.php' method='post'>
+<form action='dwc_page.php' method='post'>
 {if $status == 'display' and $username == 'admin'}
 <table>
 <tr>
@@ -55,6 +55,11 @@
 	/>
 	</td>
 *}
+</tr>
+<tr>
+	<td colspan=4 align='center'>
+		<a target='_blank' href={$logFile}>DwC Upload Log File</a>
+	</td>
 </tr>
 </table>
 {elseif $status == 'confirm_reset' and $username == 'admin'}

@@ -25,7 +25,7 @@ require_once("setup.php");
 $debugF = 1;		// 1 is on; 0 is off
 
 // dry run mode, if dry run flag is on, it skips all mysql queries
-$dryRunF = 0;		// i is on; 0 is off
+$dryRunF = 0;		// 1 is on; 0 is off
 
 
 // Open debug file to store debug information
@@ -126,7 +126,7 @@ foreach ($scripts as $script)
 		if (!empty($query))
 		{
 			if ($debugF) fwrite($dh, $query . "\n");
-			if (!$dryRunF) $db->query($query);
+			if (!$dryRunF) $db->query2($query);
 		}
 
 		// check progress and report back
@@ -161,7 +161,7 @@ if ($debugF) fwrite($dh, $steps[$step_no-1]); // counter already incremented!
 $query =	"SELECT db.database_name FROM `databases` db ".
 			"GROUP BY db.database_name";
 
-$CoL_db->query($query);
+$CoL_db->query2($query);
 
 // replace characters to clean up GSDs' databases names
 $patterns = array();
@@ -197,7 +197,7 @@ foreach ($database_names as $database_name)
 		preg_replace('/DATABASENAMESPACEHOLDER/', $database_name, $templateTxt);
 
 	if ($debugF) fwrite($dh, $query . "\n");
-	if (!$dryRunF) $db->query($query);
+	if (!$dryRunF) $db->query2($query);
 }
 
 // Creating GSDs' tables
@@ -207,7 +207,7 @@ $templateTxt =
 `taxonID` varchar(12) COLLATE utf8_bin DEFAULT NULL,
 `genus` varchar(255) COLLATE utf8_general_ci, 
 `specificEpithet` varchar(255) COLLATE utf8_general_ci,
-`scientificNameAuthorship` varchar(255) COLLATE utf8_general_ci DEFAULT NULL,
+`scientificNameAuthorship` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
 `infraspecificEpithet` varchar(255) COLLATE utf8_general_ci DEFAULT NULL,
 `verbatimTaxonRank` varchar(12) COLLATE utf8_general_ci DEFAULT NULL,
 `taxonomicStatus` varchar(45) COLLATE utf8_general_ci DEFAULT NULL,
@@ -246,7 +246,7 @@ foreach ($database_names as $database_name)
 		preg_replace('/DATABASENAMESPACEHOLDER/', $database_name, $templateTxt);
 
 	if ($debugF) fwrite($dh, $query . "\n");
-	if (!$dryRunF) $db->query($query);
+	if (!$dryRunF) $db->query2($query);
 }
 
 ///////////////////////////////////////////////////////////
@@ -260,7 +260,7 @@ if ($debugF) fwrite($dh, $steps[$step_no-1]);	// counter already incremented!
 
 // Clean up gsd directory
 foreach (new DirectoryIterator(GSD_WEB) as $file)
-	if (!$file->isDot())
+	if (!$file->isDot()&& $file->isDir())
 		rm_dir($file->getPathname());
 
 foreach ($database_names as $database_name)
@@ -302,7 +302,7 @@ foreach ($database_names as $database_name)
 		preg_replace('/DATABASENAMESPACEHOLDER/', $database_name, $templateTxt);
 
 	if ($debugF) fwrite($dh, $query . "\n");
-	if (!$dryRunF) $db->query($query);
+	if (!$dryRunF) $db->query2($query);
 }
 
 //////////////////////////////////////////////////////////////
@@ -321,7 +321,7 @@ $templateTxt =
 'source', 'updated', 'provider', 'gsd_comments', 'gsd_comments_predefined', 'gsd_short_name', 'gsd_status',
 'history_status', 'history_comments', 'tag', 'scientificName', 'taxonRank', 'in_col', 'matched_by'
 UNION SELECT * FROM DATABASENAMESPACEHOLDER
-INTO OUTFILE 'OUTPUTFILESPACEHOLDER' FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '\"' ESCAPED BY '' LINES TERMINATED BY '\\n';";
+INTO OUTFILE 'OUTPUTFILESPACEHOLDER' FIELDS TERMINATED BY '\t' OPTIONALLY ENCLOSED BY '\"' ESCAPED BY '' LINES TERMINATED BY '\n';";
 
 foreach ($database_names as $database_name)
 {
@@ -331,16 +331,15 @@ foreach ($database_names as $database_name)
 
 	$query =
 		preg_replace(
-				array(	'/DATABASENAMESPACEHOLDER/',
-					'/OUTPUTFILESPACEHOLDER/'),
-				array(	$database_name,
-					$outputFile),
-				$templateTxt
-			);
-	//$query = "SELECT * FROM 3i_Cicadellinae";
+						array(	'/DATABASENAMESPACEHOLDER/',
+								'/OUTPUTFILESPACEHOLDER/'),
+						array(	$database_name,
+								$outputFile),
+								$templateTxt
+					);
 
 	if ($debugF) fwrite($dh, $query . "\n");
-	if (!$dryRunF) $db->query($query);
+	if (!$dryRunF) $db->query2($query);
 }
 
 // Scheduler.php ending message

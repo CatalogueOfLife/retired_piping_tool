@@ -151,6 +151,14 @@ elseif (isset($_POST['editSave']))
 
 		$password =	$db->clean($_POST['password'][$userid], 32);
 
+		$down_load_url = $db->clean($_POST['down_load_url'][$userid], 256);
+		$down_load_file = $db->clean($_POST['down_load_file'][$userid], 256);
+		$down_load_username =
+					$db->clean($_POST['down_load_username'][$userid], 64);
+		$down_load_password =
+					$db->clean($_POST['down_load_password'][$userid], 64);
+		$taxa_file = $db->clean($_POST['taxa_file'][$userid], 128);
+
 		// remove any space before and after
 		$username = trim($username);
 
@@ -163,6 +171,7 @@ elseif (isset($_POST['editSave']))
 			$message .= "$username has already been used else where.<br />";
 		else
 		{
+/*
 			// check if password going to be changed
 			if (!empty($password))
 			// change password
@@ -186,6 +195,30 @@ elseif (isset($_POST['editSave']))
 				// This is changed to suppress error message
 				$message = "Saved edited userid: $userid.<br />";
 			}
+*/
+			// check if password going to be changed
+			if (!empty($password))
+			// change password, store the encrypted password
+				$c_password = crypt($password, substr($username, 0, 2));
+			else
+				// no change for password, just set it to empty string
+				$c_password = '';
+
+			// update database
+			$user->update_user(
+								$db,
+								$userid,
+								$username,
+								$role,
+								$c_password,
+								$down_load_url,
+								$down_load_file,
+								$down_load_username,
+								$down_load_passord,
+								$taxa_file
+							);
+
+			$message .= "Saved edited userid: $userid.<br />";
 		}
 
 		// re-display the user table

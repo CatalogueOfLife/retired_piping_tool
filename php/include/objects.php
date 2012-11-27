@@ -44,6 +44,18 @@ class DB
 					. $this->dbh->error);
 	}
 
+	// Query from database, this method is used in scheduler.php
+	// and scheduler_pmpnit.php scripts, as it will continue even
+	// where there is a mysql query error
+	public function query2($query_string)
+	{
+		if (!($this->result = $this->dbh->query($query_string)))
+			echo(	"\n" . $query_string . "\n" .
+					'Query Error (' . $this->dbh->errno . ') '
+					. $this->dbh->error . "\n"
+				);
+	}
+
 	// Fetch a row from query result
 	public function fetch()
 	{
@@ -94,7 +106,7 @@ Class Menu
 								array(	'text' =>	'Manually Uploading',
 										'link' =>	'upload.php'),
 								array(	'text' =>	'DwC-A Uploading',
-										'link' =>	'dwc.php'),
+										'link' =>	'dwc_page.php'),
 								array(	'text' =>	'BOLD Uploading',
 										'link' =>	'bold_upload.php'),
 								array(	'text' =>	'X-map Uploading',
@@ -291,9 +303,15 @@ Class User extends Table
 				$userid,
 				$username,
 				$role,
-				$password=''	// only apply when changing password
+				$password='',	// only apply when password is not empty
+				$down_load_url='',
+				$down_load_file='',
+				$down_load_username='',
+				$down_load_password='',
+				$taxa_file=''
 	)
 	{
+/*
 		if (empty($password))
 			$query = "UPDATE user SET ".
 						"username	= '$username', ".
@@ -305,6 +323,20 @@ Class User extends Table
 						"password	= '$password', ".
 						"role		= '$role' ".
 					 "WHERE userid = '$userid'";
+*/
+
+		$query = "UPDATE user SET ".
+					"username	= '$username', ";
+
+		if ($password)
+			$query .= "password = '$password',";
+
+		$query .= "down_load_url='$down_load_url',";
+		$query .= "down_load_file='$down_load_file',";
+		$query .= "down_load_username='$down_load_username',";
+		$query .= "down_load_password='$down_load_password',";
+		$query .= "taxa_file='$taxa_file',";
+		$query .= "role	= '$role' WHERE userid = '$userid'";
 
 		// do the actual update
 		$db->query($query);
@@ -342,6 +374,9 @@ Class UserInfo extends Table
 	public $username;
 	public $role;
 	public $down_load_url;
+	public $down_load_file;
+	public $down_load_username;
+	public $down_load_password;
 	public $taxa_file;
 	public $inputField = array();
 	//public $inputField;
@@ -363,19 +398,22 @@ Class UserInfo extends Table
 //echo "Trying to print result";
 //echo $result[0]['inputField'];
 
-		$this->userid		= $result[0]['userid'];
-		$this->role			= $result[0]['role'];
-		$this->down_load_url= $result[0]['down_load_url'];
-		$this->taxa_file	= $result[0]['taxa_file'];
+		$this->userid			= $result[0]['userid'];
+		$this->role				= $result[0]['role'];
+		$this->down_load_url	= $result[0]['down_load_url'];
+		$this->down_load_file	= $result[0]['down_load_file'];
+		$this->down_load_username = $result[0]['down_load_username'];
+		$this->down_load_password = $result[0]['down_load_password'];
+		$this->taxa_file		= $result[0]['taxa_file'];
 
-		//$inputFields = $result[0]['inputField'];
-		$this->inputField	= explode(':', $result[0]['inputField']);
+		//$inputFields 			= $result[0]['inputField'];
+		$this->inputField		= explode(':', $result[0]['inputField']);
 
-		$this->delimitor	= $result[0]['delimitor'];
-		$this->enclose_by	= $result[0]['enclose_by'];
-		$this->no_first_row	= $result[0]['no_first_row'];
-		$this->mysql_script	= $result[0]['mysql_script'];
-		$this->mysql_where	= $result[0]['mysql_where'];
+		$this->delimitor		= $result[0]['delimitor'];
+		$this->enclose_by		= $result[0]['enclose_by'];
+		$this->no_first_row		= $result[0]['no_first_row'];
+		$this->mysql_script		= $result[0]['mysql_script'];
+		$this->mysql_where		= $result[0]['mysql_where'];
 
 	}	// end of __construct()
 

@@ -132,8 +132,10 @@ elseif (isset($_POST['load_col_data']) && $_SESSION['username'] == 'admin')
 		$CoL_db->query($query);
 
 		// common mysql instruction components
-		$txt1 = "UPDATE $DB_databasename" . '.taxa SET taxa.matched_by = "' .
-				$taxonLevel . '", taxa.gsd_short_name = CONCAT_WS(", ", "';
+	//	$txt1 = "UPDATE $DB_databasename" . '.taxa SET taxa.matched_by = "' .
+	//			$taxonLevel . '", taxa.gsd_short_name = CONCAT_WS(", ", "';
+		$txt1 = "UPDATE $DB_databasename" . '.taxa SET ' .
+				'taxa.gsd_short_name = CONCAT_WS(", ", "';
 		$txt2 = '", taxa.gsd_short_name) WHERE taxa.matched_by IS NULL AND `' .
 				$taxonLevel . '` IN(';
 		$txt3 = ');' . "\n";
@@ -141,7 +143,10 @@ elseif (isset($_POST['load_col_data']) && $_SESSION['username'] == 'admin')
 				'.taxa SET taxa.matched_by = "no match", '.
 				'taxa.gsd_short_name = "protoGSD" '.
 				'WHERE (taxa.matched_by IS NULL) AND '.
-				'(taxa.gsd_short_name IS NULL);';
+				'(taxa.gsd_short_name IS NULL);' . "\n";
+		$txt5 = "UPDATE $DB_databasename" .  '.taxa SET taxa.matched_by = "' .
+				$taxonLevel . '" WHERE taxa.gsd_short_name IS NOT NULL AND '.
+				'taxa.matched_by IS NULL;' . "\n";
 
 		for($i = 0 ; $i < $CoL_db->num_rows(); $i++)
 		{
@@ -177,7 +182,19 @@ elseif (isset($_POST['load_col_data']) && $_SESSION['username'] == 'admin')
 			/////////////////////////////
 			// value of $taxonLevel lists
 			/////////////////////////////
-			$taxonLists = explode(',', $results[1]);
+
+		//	$taxonLists = explode(',', $results[1]);
+
+			// need to remove any empty elements
+			$taxonListsUnclean = explode(',', $results[1]);
+
+			// initialize $taxonLists
+			$taxonLists = array();
+
+			// remove any empty value
+			foreach($taxonListsUnclean as $element)
+				if ($element)
+					$taxonLists[] = $element;
 
 			// first element of the lists treated differently
 			fwrite($mysql_file_h, '"' . array_shift($taxonLists) . '"');
@@ -193,6 +210,8 @@ elseif (isset($_POST['load_col_data']) && $_SESSION['username'] == 'admin')
 
 		if ($taxonLevel == 'genus')
 			fwrite($mysql_file_h, $txt4);
+
+		fwrite($mysql_file_h, $txt5);
 
 		fclose($mysql_file_h);
 	}
@@ -231,11 +250,15 @@ elseif (isset($_POST['load_col_data']) && $_SESSION['username'] == 'admin')
 	{
 		$results = $CoL_db->fetch();
 
-		fwrite($speciesFile_h, $txt1);
-		fwrite($speciesFile_h, $results['genus'] );
-		fwrite($speciesFile_h, $txt2);
-		fwrite($speciesFile_h, $results['species'] );
-		fwrite($speciesFile_h, $txt3);
+		// ignore any empty genus and species
+		if ($results['genus'] && $results['species'])
+		{
+			fwrite($speciesFile_h, $txt1);
+			fwrite($speciesFile_h, $results['genus'] );
+			fwrite($speciesFile_h, $txt2);
+			fwrite($speciesFile_h, $results['species'] );
+			fwrite($speciesFile_h, $txt3);
+		}
 	}
 	fclose($speciesFile_h);
 
@@ -263,13 +286,17 @@ elseif (isset($_POST['load_col_data']) && $_SESSION['username'] == 'admin')
 	{
 		$results = $CoL_db->fetch();
 
-		fwrite($infraspeciesFile_h, $txt1);
-		fwrite($infraspeciesFile_h, $results['genus'] );
-		fwrite($infraspeciesFile_h, $txt2);
-		fwrite($infraspeciesFile_h, $results['species'] );
-		fwrite($infraspeciesFile_h, $txt3);
-		fwrite($infraspeciesFile_h, $results['infraspecies'] );
-		fwrite($infraspeciesFile_h, $txt4);
+		// ignore any empty genus and species
+		if ($results['genus'] && $results['species'])
+		{
+			fwrite($infraspeciesFile_h, $txt1);
+			fwrite($infraspeciesFile_h, $results['genus'] );
+			fwrite($infraspeciesFile_h, $txt2);
+			fwrite($infraspeciesFile_h, $results['species'] );
+			fwrite($infraspeciesFile_h, $txt3);
+			fwrite($infraspeciesFile_h, $results['infraspecies'] );
+			fwrite($infraspeciesFile_h, $txt4);
+		}
 	}
 	fclose($infraspeciesFile_h);
 

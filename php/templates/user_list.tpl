@@ -48,7 +48,7 @@
 *}
 
 {*<input name='editUser' type='submit' value='Edit Selected Users' />*}
-<input name='editUser' type='submit' value="Change Selected Users' passwords" />
+<input name='editUser' type='submit' value="Change Selected Users' Settings" />
 
 {* disable this
 <input name='deleteUser' type='submit' value='Delete Selected Users'
@@ -144,12 +144,59 @@
 *}
 
 <tr>
-	<td>Password<font color='red'>*</font>:</td>
+	<td>Sign In Password<font color='red'>*</font>:</td>
 	<td><input
 			name='password[{$user[row]['userid']}]'
 		/>
 	</td>
 </tr>
+
+<tr>
+	<td>Down Load URL:</td>
+	<td><input
+			name='down_load_url[{$user[row]['userid']}]'
+			value='{$user[row]['down_load_url']}'
+			size="80"
+		/>
+	</td>
+</tr>
+
+<tr>
+	<td>Down Load Zip File Name:</td>
+	<td><input
+			name='down_load_file[{$user[row]['userid']}]'
+			value='{$user[row]['down_load_file']}'
+		/>
+	</td>
+</tr>
+
+<tr>
+	<td>Down Load Username:</td>
+	<td><input
+			name='down_load_username[{$user[row]['userid']}]'
+			value='{$user[row]['down_load_username']}'
+		/>
+	</td>
+</tr>
+
+<tr>
+	<td>Down Load Password:</td>
+	<td><input
+			name='down_load_password[{$user[row]['userid']}]'
+			value='{$user[row]['down_load_password']}'
+		/>
+	</td>
+</tr>
+
+<tr>
+	<td>Data File Name:</td>
+	<td><input
+			name='taxa_file[{$user[row]['userid']}]'
+			value='{$user[row]['taxa_file']}'
+		/>
+	</td>
+</tr>
+
 <tr><td>&nbsp;</td></tr>
 {/section}
 

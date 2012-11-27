@@ -116,7 +116,8 @@ associated with that particular tag name.
 User List (Admin Only)</h4>
 <p style="margin-top:0;">
 This interface is for Piping Tools adminstrator only. Use this page to change
-Piping Tools users' passwords.
+Piping Tools users' passwords for sign in, Darwin Core download URLs and other
+settings for processing Darwin Core.
 </p>
 
 <h4 style="margin-bottom:0;">

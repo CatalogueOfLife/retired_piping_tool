@@ -45,7 +45,7 @@ define ('DEBUG', '/var/www/piping_devel/php/debug/debug.txt');
 define ('LOG', '/var/www/piping_devel/php/log/scheduler.log');
 
 // define scheduler log file URL. dummy GET parameter added to bypass cache
-define ('LOG_URL', 'http://salx9-vm9.rdg.ac.uk/piping_devel/log/scheduler.log?dummy');
+define ('LOG_URL', '/piping_devel/log/scheduler.log?dummy');
 
 // define scheduler_pmonit debug file and path
 define ('DEBUG_PM', '/var/www/piping_devel/php/debug/debug_pm.txt');
@@ -55,7 +55,13 @@ define ('LOG_PM', '/var/www/piping_devel/php/log/scheduler_pm.log');
 
 // define scheduler_pmonit log file URL. dummy GET parameter added to
 // bypass cache
-define ('LOG_PM_URL', 'http://salx9-vm9.rdg.ac.uk/piping_devel/log/scheduler_pm.log?dummy');
+define ('LOG_PM_URL', '/piping_devel/log/scheduler_pm.log?dummy');
+
+// define dwc log file and path
+define ('LOG_DWC', '/var/www/piping_devel/php/log/dwc.log');
+
+// define dwc loading log file URL. dummy GET parameter added to bypass cache
+define ('LOG_DWC_URL', '/piping_devel/log/dwc.log?dummy');
 
 ///////////////////////////////////////////////////////////////
 // End of server setting for //////////////////////////////////

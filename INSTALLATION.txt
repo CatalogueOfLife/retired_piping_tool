@@ -35,6 +35,7 @@ Create these directories under root
 	webservice/gbp
 	webservice/gsd
 	webservice/rss
+	webservice/styles
 
 	admin
 	BOLD
@@ -50,6 +51,7 @@ Create these directories under root
 	change_psword.php
 	disclaimer
 	dwc.php
+	dwc_page.php
 	help.php
 	index.php
 	logout.php
@@ -100,17 +102,32 @@ Create these directories under root
 	piping.sql
 	initialize_db.sh
 
-7. Edit files in php/mysql directory
+7. Copy files into webservice directory
+---------------------------------------
+Note: all the .htaccess have different contents despite they all got the
+      same name
+
+	.htaccess
+
+	gbp/.htaccess
+	gsd/.htaccess
+	rss/.htaccess
+
+	styles/4d4life.gif
+	styles/footer.html
+	styles/header.html
+
+8. Edit files in php/mysql directory
 ------------------------------------
 Change both piping.sql and initialize_db.sh to the appropriate database name.
 For initialize_db.sh also change to appropriate database username and password
 
-8. Run initialize_db.sh in php/mysql directory
+9. Run initialize_db.sh in php/mysql directory
 -------------------------------------------
 $ ./initialize_db.sh
 This will create all the Piping Tools tables in databases.
 
-9. Edit php/include/db.php 
+10. Edit php/include/db.php 
 --------------------------
 Change:
 	$DB_username		= "username";
@@ -121,7 +138,7 @@ Change:
 
 to appropriate value strings
 
-10. Edit php/setup.php 
+11. Edit php/setup.php 
 ----------------------
 Change to correct paths, filenames and URLs:
 
@@ -172,20 +189,26 @@ define ('LOG_PM', '/var/www/piping_devel/php/log/scheduler_pm.log');
 // bypass cache
 define ('LOG_PM_URL', 'http://salx9-vm9.rdg.ac.uk/piping_devel/log/scheduler_pm.log?dummy');
 
-11. Copy files into shell/skel/new_gsd directory
+// define dwc log file and path
+define ('LOG_DWC', '/var/www/piping_devel/php/log/dwc.log');
+
+// define dwc loading log file URL. dummy GET parameter added to bypass cache
+define ('LOG_DWC_URL', 'http://salx9-vm9.rdg.ac.uk/piping_devel/log/dwc.log?dummy');
+
+12. Copy files into shell/skel/new_gsd directory
 ------------------------------------------------
 	.htaccess
 
-12. Copy files into shell/skel/new_gbp directory
+13. Copy files into shell/skel/new_gbp directory
 ------------------------------------------------
 	.htaccess
 
-13. Change owner and group for all directories and files under server root
+14. Change owner and group for all directories and files under server root
 --------------------------------------------------------------------------
 e.g.
 $ sudo chown -R www-data:www-data *
 
-14. Change setting of php.ini file
+15. Change setting of php.ini file
 ----------------------------------
 The file likely in /etc/php5/apache2/php.ini
 

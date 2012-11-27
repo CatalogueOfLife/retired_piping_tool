@@ -4,6 +4,9 @@ CREATE TABLE `piping_devel`.`user` (
 	`password` VARCHAR(16) NULL DEFAULT NULL ,
 	`role` ENUM('admin', 'GBP', 'GSD') NOT NULL ,
 	`down_load_url` VARCHAR(256) NULL DEFAULT NULL ,
+	`down_load_file` VARCHAR(256) NULL DEFAULT NULL,
+	`down_load_username` VARCHAR(64) NULL DEFAULT NULL ,
+	`down_load_password` VARCHAR(64) NULL DEFAULT NULL ,
 	`taxa_file` VARCHAR(128) NULL DEFAULT NULL ,
 	`inputField` varchar(512) NULL DEFAULT NULL ,
 	`delimitor` ENUM('comma', 'semicolon', 'tab', 'space') NULL DEFAULT NULL ,
@@ -20,6 +23,8 @@ DEFAULT CHARSET = utf8 COLLATE utf8_general_ci;
 INSERT INTO `piping_devel`.`user` VALUES 
 	(0, 'admin', 'adpexzg3FUZAk', 'admin',
 	'',
+	'',
+	'', '',
 	'upload.csv',
 	'taxonID:genus:specificEpithet:scientificNameAuthorship:taxonomicStatus:acceptedNameUsageID:tag',
 	'tab', 'd_quote', '1',
@@ -55,6 +60,7 @@ INSERT INTO `piping_devel`.`user` VALUES
 
 	(1, 'ENA', 'ENeKNcUZ6h1Eg', 'GBP',
 	'ftp://ftp.ebi.ac.uk/pub/databases/ena/taxonomy/sdwca/ena.zip',
+	'ena.zip', '', '',
 	'taxa.txt',
 	'taxonID:scientificName:acceptedNameUsageID:parentNameUsageID:higherClassification:superKingdom:kingdom:superphylum:phylum:subphylum:superclass:class:subclass:infraclass:superorder:order:suborder:infraorder:parvorder:superfamily:family:subfamily:tribe:subtribe:genus:subgenus:specificEpithet:infraspecificEpithet:infrasubspecificEpithet:identificationQualifier:taxonRank:verbatimTaxonRank:scientificNameAuthorship:taxonomicStatus',
 	'tab', 'none', '1',
@@ -116,6 +122,7 @@ INSERT INTO `piping_devel`.`user` VALUES
 
 	(2, 'CBOL', 'CB0whgZAKeI2M', 'GBP',
 	'http://i4life.museum.miiz.eu/piping/LATEST',
+	'CBOL.zip', 'i4life', 'project2012',
 	'taxa.txt',
 	'taxonID:datasetID:datasetName:scientificName:genus:specificEpithet:scientificNameAuthorship:verbatimTaxonRank:taxonomicStatus:taxonRank:acceptedNameUsageID:family:order',
 	'tab', 'none', '1',
@@ -157,6 +164,7 @@ INSERT INTO `piping_devel`.`user` VALUES
 
 	(3, 'GBIF', 'GBkc/wg1v/zMg', 'GBP',
 	'http://ecat-dev.gbif.org/repository/export/checklist1-noncol.zip',
+	'checklist1-noncol.zip', '', '',
 	'taxon.txt',
 	'taxonID:parentNameUsageID:acceptedNameUsageID:scientificName:canonicalName:taxonRank:taxonomicStatus:nomenclaturalStatus:genus:specificEpithet:infraspecificEpithet:namePublishedIn:nameAccordingTo:kingdom:phylum:class:order:family:indexedOccurrenceCount:datasetCount:countryCount',
 	'tab', 'none', '0',
@@ -207,6 +215,7 @@ INSERT INTO `piping_devel`.`user` VALUES
 
 	(4, 'IUCN', 'IUWYwHMqLgqtg', 'GBP',
 	'http://map3d.iucn.org:8080/ipt/archive.do?r=redlist',
+	'IUCN.zip', '', '',
 	'taxon.txt',
 	'taxonID:class:genus:phylum:family:acceptedNameUsageID:bibliographicCitation:taxonRank:order:scientificName:scientificNameAuthorship:kingdom',
 	'tab', 'none', '0',
@@ -264,10 +273,11 @@ INSERT INTO `piping_devel`.`user` VALUES
 	''),
 
 	(5, 'Mycobank', 'MyHCa9rzBeDPk', 'GBP',
-	'', '', '', '', '', '1', '', ''),
+	'', '', '', '', '', '', '', '', '1', '', ''),
 
 	(6, 'BOLD', 'BOgQCnq7OW9e6', 'GBP',
 	'',
+	'', '', '',
 	'upload.csv',
 	'IDPhylum:phylum:IDClass:class:IDOrder:order:IDFamily:family:IDSubfamily:subfamily:IDGenus:genus:IDSpecies:species',
 	'tab', 'none', '0',
@@ -294,6 +304,7 @@ INSERT INTO `piping_devel`.`user` VALUES
 
 	(7, 'EoL', 'Eo0HA9IhNIWRE', 'GBP',
 	'https://dl.dropbox.com/u/1355101/eol_trees_and_links.txt.tar.gz',
+	'eol_trees_and_links.txt.tar.gz', '', '',
 	'eol_trees_and_links.txt',
 	'EoLPageID:hierarchyNodeID:name:parentEoLPageID:parentHierarchyNodeID:EoLPageRichnessScore:rank:partnerTaxonIdentifier:partnerName:partnerURL',
 

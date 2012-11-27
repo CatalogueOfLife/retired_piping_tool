@@ -62,7 +62,7 @@ if ($debugF) fwrite($dh, $steps[$step_no-1]); // counter already incremented!
 // Get a list of GBPs' user name
 $query =	"SELECT username FROM `user`";
 
-$db->query($query);
+$db->query2($query);
 
 // replace characters to clean up GBPs' names
 $patterns = array();
@@ -100,15 +100,15 @@ sort($gsds);
 // remove old comments on taxa table
 $query = "UPDATE taxa SET `gsd_status` = NULL;";
 if ($debugF) fwrite($dh, $query . "\n");
-if (!$dryRunF) $db->query($query);
+if (!$dryRunF) $db->query2($query);
 
 $query = "UPDATE taxa SET `gsd_comments` = NULL;";
 if ($debugF) fwrite($dh, $query . "\n");
-if (!$dryRunF) $db->query($query);
+if (!$dryRunF) $db->query2($query);
 
 $query = "UPDATE taxa SET `gsd_comments_predefined` = NULL;";
 if ($debugF) fwrite($dh, $query . "\n");
-if (!$dryRunF) $db->query($query);
+if (!$dryRunF) $db->query2($query);
 
 // This UPDATE queries need to do one at a time, mysql doesn't seem to accept
 // them in one go. 
@@ -131,22 +131,22 @@ foreach ($gsds as $gsd)
 	$query =
 		preg_replace('/GSDSPACEHOLDER/', $gsd, $templateTxt1);
 	if ($debugF) fwrite($dh, $query . "\n");
-	if (!$dryRunF) $db->query($query);
+	if (!$dryRunF) $db->query2($query);
 
 	$query =
 		preg_replace('/GSDSPACEHOLDER/', $gsd, $templateTxt2);
 	if ($debugF) fwrite($dh, $query . "\n");
-	if (!$dryRunF) $db->query($query);
+	if (!$dryRunF) $db->query2($query);
 
 	$query =
 		preg_replace('/GSDSPACEHOLDER/', $gsd, $templateTxt3);
 	if ($debugF) fwrite($dh, $query . "\n");
-	if (!$dryRunF) $db->query($query);
+	if (!$dryRunF) $db->query2($query);
 
 	$query =
 		preg_replace('/GSDSPACEHOLDER/', $gsd, $templateTxt4);
 	if ($debugF) fwrite($dh, $query . "\n");
-	if (!$dryRunF) $db->query($query);
+	if (!$dryRunF) $db->query2($query);
 
 }
 
@@ -161,7 +161,7 @@ if ($debugF) fwrite($dh, $steps[$step_no-1]); // counter already incremented!
 
 // Clean up gbp directories
 foreach (new DirectoryIterator(GBP_WEB) as $file)
-	if (!$file->isDot())
+	if (!$file->isDot() && $file->isDir())
 		rm_dir($file->getPathname());
 
 foreach ($gbps as $gbp)
@@ -188,7 +188,7 @@ $templateTxt =
 "SELECT 'taxonID', 'scientificName', 'taxonRank', 'genus', 'specificEpithet', 'scientificNameAuthorship', 'infraspecificEpithet', 'verbatimTaxonRank', 'taxonomicStatus', 'acceptedNameUsageID', 'parentNameUsageID', 'family', 'order', 'class', 'phylum', 'kingdom', 'higherClassification', 'namePublishedIn', 'taxonRemarks', 'source'
 UNION
 SELECT `taxonID`, `scientificName`, `taxonRank`, `genus`, `specificEpithet`, `scientificNameAuthorship`, `infraspecificEpithet`, `verbatimTaxonRank`, `taxonomicStatus`, `acceptedNameUsageID`, `parentNameUsageID`, `family`, `order`, `class`, `phylum`, `kingdom`, `higherClassification`, `namePublishedIn`, CONCAT_WS(' ', 'Status:', `gsd_status`, '. Comments:', `gsd_comments`, '; ' ,
-`gsd_comments_predefined`) as `taxonRemarks`, `source` FROM taxa WHERE (`gsd_comments` IS NOT NULL OR `gsd_status` IS NOT NULL OR `gsd_comments_predefined` IS NOT NULL) AND provider_id = GBPIDSPACEHOLDER INTO OUTFILE 'OUTPUTFILESPACEHOLDER' FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '\"' ESCAPED BY '' LINES TERMINATED BY '\\n';";
+`gsd_comments_predefined`) as `taxonRemarks`, `source` FROM taxa WHERE (`gsd_comments` IS NOT NULL OR `gsd_status` IS NOT NULL OR `gsd_comments_predefined` IS NOT NULL) AND provider_id = GBPIDSPACEHOLDER INTO OUTFILE 'OUTPUTFILESPACEHOLDER' FIELDS TERMINATED BY '\t' OPTIONALLY ENCLOSED BY '\"' ESCAPED BY '' LINES TERMINATED BY '\\n';";
 
 foreach ($gbps as $gbp)
 	if ($gbp != 'admin')
@@ -198,7 +198,7 @@ foreach ($gbps as $gbp)
 		// get provider (userid) ID from user table
 		$query = "SELECT userid FROM user ".
 				 "WHERE username='" . $gbp . "'";
-		$db->query($query);
+		$db->query2($query);
 		$results = $db->fetch();
 		$dataProviderID = $results['userid'];
 
@@ -214,7 +214,7 @@ foreach ($gbps as $gbp)
 							$templateTxt
 						);
 		if ($debugF) fwrite($dh, $query . "\n");
-		if (!$dryRunF) $db->query($query);
+		if (!$dryRunF) $db->query2($query);
 
 		$zip = new ZipArchive;
 		if (	file_exists($outputFile) &&
@@ -273,6 +273,9 @@ WHERE
 GROUP BY provider) AS ann
 ON gsd.provider=ann.provider GROUP BY gsd.provider';
 
+// Need to include protoGSD in statistic data
+$gsds[] = 'protoGSD';
+
 // do mysql here
 $data = '';			// Initial $data as empty string
 foreach ($gsds as $gsd)
@@ -290,9 +293,9 @@ foreach ($gsds as $gsd)
 					);
 
 	if ($debugF) fwrite($dh, $query . "\n");
-	if (!$dryRunF) $db->query($query);
+	if (!$dryRunF) $db->query2($query);
 
-//	$db->query($query);
+//	$db->query2($query);
 
 	for($i = 0; $i < $db->num_rows(); $i++)
 	{
