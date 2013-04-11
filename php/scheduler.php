@@ -131,11 +131,16 @@ foreach ($scripts as $script)
 
 		// check progress and report back
 		// 10% progress
-		if (($c_line++ > $progress[$i]) && $i < 10)
+		//if (($c_line++ > $progress[$i]) && $i < 10)
+
+		// this should solve offset: 10 problem
+		//if (($i < 10) && ($c_line++ > $progress[$i]))
+		if (($i < 10) && ($c_line > $progress[$i]))
 		{
 			echo "$i" . "0%";
 			$i++;
 		}
+
 
 		// 1% pregress
 		elseif ($c_line > $j)
@@ -143,6 +148,8 @@ foreach ($scripts as $script)
 			echo ".";
 			$j += $progress[0];				// increases $j by another 1%
 		}
+
+		$c_line++;
 	}
 	echo "$100%\n";
 	fclose($fh);	// closing file handle of current script file
@@ -186,8 +193,14 @@ for($i = 0; $i < $CoL_db->num_rows(); $i++)
 	$results = $CoL_db->fetch();
 	$database_names[] = preg_replace($patterns, $replacements, $results['0']);
 }
-// add protoGSD as the last element of $database_names array
-$database_names[] = "protoGSD";
+// add Unplaced_Names as the last element of $database_names array
+$database_names[] = "Unplaced_Names";
+
+/*
+// This lines are commented out to fix GSDs' annotation problem
+// by not delete GSDs' tables every time scheduler is run, so
+// the annotation is stored on GSDs' tables and no need to move annotation
+// from taxa table back on the GSDs' table.
 
 // Clean up the database first by deleting existing GSDs' tables
 $templateTxt = "DROP TABLE IF EXISTS DATABASENAMESPACEHOLDER;";
@@ -199,6 +212,7 @@ foreach ($database_names as $database_name)
 	if ($debugF) fwrite($dh, $query . "\n");
 	if (!$dryRunF) $db->query2($query);
 }
+*/
 
 // Creating GSDs' tables
 $templateTxt = 
@@ -285,21 +299,46 @@ echo $steps[$step_no++];
 // wrtie to debug file
 if ($debugF) fwrite($dh, $steps[$step_no-1]);	// counter already incremented!
 
+// Note: 'IGNORE' is added here, so when the record has the same ID trying
+// to insert into GSD's table, the insert command would just be ignored
 $templateTxt =
-'INSERT INTO DATABASENAMESPACEHOLDER
+'INSERT IGNORE INTO DATABASENAMESPACEHOLDER (
+`id`, `taxonID`, `genus`, `specificEpithet`, `scientificNameAuthorship`, `infraspecificEpithet`, `verbatimTaxonRank`,
+`taxonomicStatus`, `acceptedNameUsageID`, `parentNameUsageID`, `family`, `ordo`, `class`, `phylum`, `kingdom`,
+`higherClassification`, `namePublishedIn`, `taxonRemarks`, `source`, `updated`, `provider`, 
+`gsd_short_name`, `history_status`, `history_comments`, `tag`,
+`scientificName`, `taxonRank`, `in_col`, `matched_by`)
 SELECT `id`, `taxonID`, `genus`, `specificEpithet`, `scientificNameAuthorship`, `infraspecificEpithet`, `verbatimTaxonRank`,
 `taxonomicStatus`, `acceptedNameUsageID`, `parentNameUsageID`, `family`, `order`, `class`, `phylum`, `kingdom`,
-`higherClassification`, `namePublishedIn`, `taxonRemarks`, `source`, `updated`, `provider_id`, `gsd_comments`,
-`gsd_comments_predefined`, `gsd_short_name`, `gsd_status`, `history_status`, `history_comments`, `tag`,
+`higherClassification`, `namePublishedIn`, `taxonRemarks`, `source`, `updated`, `provider_id`, 
+`gsd_short_name`, `history_status`, `history_comments`, `tag`,
 `scientificName`, `taxonRank`, `in_col`, `matched_by` 
 FROM taxa pt WHERE gsd_short_name LIKE "%DATABASENAMESPACEHOLDER%";';
+
+$unplacedTxt =
+'INSERT IGNORE INTO Unplaced_Names (
+`id`, `taxonID`, `genus`, `specificEpithet`, `scientificNameAuthorship`, `infraspecificEpithet`, `verbatimTaxonRank`,
+`taxonomicStatus`, `acceptedNameUsageID`, `parentNameUsageID`, `family`, `ordo`, `class`, `phylum`, `kingdom`,
+`higherClassification`, `namePublishedIn`, `taxonRemarks`, `source`, `updated`, `provider`, 
+`gsd_short_name`, `history_status`, `history_comments`, `tag`,
+`scientificName`, `taxonRank`, `in_col`, `matched_by`)
+SELECT `id`, `taxonID`, `genus`, `specificEpithet`, `scientificNameAuthorship`, `infraspecificEpithet`, `verbatimTaxonRank`,
+`taxonomicStatus`, `acceptedNameUsageID`, `parentNameUsageID`, `family`, `order`, `class`, `phylum`, `kingdom`,
+`higherClassification`, `namePublishedIn`, `taxonRemarks`, `source`, `updated`, `provider_id`, 
+`gsd_short_name`, `history_status`, `history_comments`, `tag`,
+`scientificName`, `taxonRank`, `in_col`, `matched_by` 
+FROM taxa pt WHERE (matched_by IS NULL) AND (gsd_short_name IS NULL);';
 
 foreach ($database_names as $database_name)
 {
 	echo "$database_name\n";
 
-	$query =
-		preg_replace('/DATABASENAMESPACEHOLDER/', $database_name, $templateTxt);
+	if ($database_name != "Unplaced_Names")
+		$query =
+			preg_replace('/DATABASENAMESPACEHOLDER/',
+							$database_name, $templateTxt);
+	else
+		$query = $unplacedTxt;
 
 	if ($debugF) fwrite($dh, $query . "\n");
 	if (!$dryRunF) $db->query2($query);

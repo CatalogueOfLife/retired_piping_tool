@@ -156,7 +156,7 @@ function getDwC(UserInfo $gbp_info)
 		}
 		else
 			// set old data stamp as empty string
-			$old_data_stamp = '';
+			$old_date_stamp = '';
 
 		if (file_exists($home_dir . "eml.xml"))
 			unlink($home_dir . "eml.xml");

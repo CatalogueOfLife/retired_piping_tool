@@ -92,11 +92,13 @@ for($i = 0; $i < $db->num_rows(); $i++)
 $gsds = array();
 foreach (new DirectoryIterator(GSD_WEB) as $dir)
 	if (!$dir->isDot() && $dir->isDir())
-		if ($dir->getBasename() != 'protoGSD')	// don't need protoGSD here.
+		if ($dir->getBasename() != 'Unplaced_Names')	// don't need
+														// Unplaced_Names here.
 			$gsds[] = $dir->getBasename();
 // in alphabetical order
 sort($gsds);
 
+/* We no longer pull GSDs' annotations onto taxa table
 // remove old comments on taxa table
 $query = "UPDATE taxa SET `gsd_status` = NULL;";
 if ($debugF) fwrite($dh, $query . "\n");
@@ -107,6 +109,68 @@ if ($debugF) fwrite($dh, $query . "\n");
 if (!$dryRunF) $db->query2($query);
 
 $query = "UPDATE taxa SET `gsd_comments_predefined` = NULL;";
+if ($debugF) fwrite($dh, $query . "\n");
+if (!$dryRunF) $db->query2($query);
+*/
+
+// remove old annotated_taxa table
+$query = "DROP TABLE IF EXISTS annotated_taxa;";
+if ($debugF) fwrite($dh, $query . "\n");
+if (!$dryRunF) $db->query2($query);
+
+// create new annotated_taxa table, here we put GSDs' annotations
+$query =
+"CREATE TABLE IF NOT EXISTS `annotated_taxa` (
+	`ATid` int(10) unsigned NOT NULL AUTO_INCREMENT,
+	`id` int(10) unsigned NOT NULL,
+	`taxonID` varchar(12) DEFAULT NULL
+		COMMENT 'We do not know what type of identifiers are used by
+		providers. Providers may refuse to provide their identifiers.',
+	`genus` varchar(255) NOT NULL,
+	`specificEpithet` varchar(255) NOT NULL,
+	`scientificNameAuthorship` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+	`infraspecificEpithet` varchar(255) DEFAULT NULL,
+	`verbatimTaxonRank` varchar(12) DEFAULT NULL,
+	`taxonomicStatus` varchar(45) DEFAULT NULL,
+	`acceptedNameUsageID` varchar(12) DEFAULT NULL,
+	`parentNameUsageID` varchar(12) DEFAULT NULL,
+	`family` varchar(255) DEFAULT NULL,
+	`order` varchar(255) DEFAULT NULL,
+	`class` varchar(255) DEFAULT NULL,
+	`phylum` varchar(255) DEFAULT NULL,
+	`kingdom` varchar(255) DEFAULT NULL,
+	`higherClassification` varchar(500) DEFAULT NULL,
+	`namePublishedIn` varchar(500) DEFAULT NULL,
+	`taxonRemarks` varchar(500) DEFAULT NULL,
+	`source` varchar(255) DEFAULT NULL,
+	`updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE
+		CURRENT_TIMESTAMP
+		COMMENT 'timestamp of the last update',
+	`provider_id` tinyint(3) unsigned NOT NULL
+		COMMENT 'ID of provider as in providers table',
+	`gsd_comments` varchar(500) COMMENT 'feedback from gsds',
+	`gsd_comments_predefined` varchar(500) DEFAULT NULL,
+	`gsd_short_name` varchar(150) DEFAULT NULL
+		COMMENT 'abbreviation of GSD for which the name has been assigned',
+	`gsd_status` varchar(45) DEFAULT NULL
+		COMMENT 'Accepter or Rejected. Explanation of decision is stored
+		in gsd_comments',
+	`history_status` integer(10) DEFAULT NULL
+		COMMENT 'Indicates how many times species name appeared in providers
+		list (even if it was accepted or rejected by GSDs before)',
+	`history_comments` varchar(255) DEFAULT NULL
+		COMMENT 'Explains history_status - possibly discussion between
+		provider, GSD and the COL',
+	`tag` varchar(32) NOT NULL,
+	`scientificName` varchar(255) DEFAULT NULL,
+	`taxonRank` varchar(24) DEFAULT NULL,
+	`in_col` tinyint(3) unsigned DEFAULT NULL,
+	`matched_by` varchar(8) DEFAULT NULL,
+	PRIMARY KEY (`ATid`)
+)
+ENGINE=MyISAM
+DEFAULT CHARSET=utf8 COLLATE utf8_general_ci;";
+
 if ($debugF) fwrite($dh, $query . "\n");
 if (!$dryRunF) $db->query2($query);
 
@@ -122,7 +186,85 @@ $templateTxt3 =
 'UPDATE GSDSPACEHOLDER SET gsd_comments_predefined = NULL WHERE LENGTH(gsd_comments_predefined) < 1 OR gsd_comments_predefined = "NULL";';
 
 $templateTxt4 =
+'INSERT INTO annotated_taxa (
+	`id`,
+	`gsd_status`,
+	`gsd_comments`,
+	`gsd_comments_predefined`,
+
+	`taxonID`,
+	`genus`,
+	`specificEpithet`,
+	`scientificNameAuthorship`,
+	`infraspecificEpithet`,
+	`verbatimTaxonRank`,
+	`taxonomicStatus`,
+	`acceptedNameUsageID`,
+	`parentNameUsageID`,
+	`family`,
+	`order`,
+	`class`,
+	`phylum`,
+	`kingdom`,
+	`higherClassification`,
+	`namePublishedIn`,
+	`taxonRemarks`,
+	`source`,
+	`updated`,
+	`provider_id`, 
+	`gsd_short_name`,
+	`history_status`,
+	`history_comments`,
+	`tag`,
+	`scientificName`,
+	`taxonRank`,
+	`in_col`,
+	`matched_by` 
+)
+SELECT
+	`id`,
+	`gsd_status`,
+	`gsd_comments`,
+	`gsd_comments_predefined`,
+
+	`taxonID`,
+	`genus`,
+	`specificEpithet`,
+	`scientificNameAuthorship`,
+	`infraspecificEpithet`,
+	`verbatimTaxonRank`,
+	`taxonomicStatus`,
+	`acceptedNameUsageID`,
+	`parentNameUsageID`,
+	`family`,
+	`ordo`,
+	`class`,
+	`phylum`,
+	`kingdom`,
+	`higherClassification`,
+	`namePublishedIn`,
+	`taxonRemarks`,
+	`source`,
+	`updated`,
+	`provider`, 
+	`gsd_short_name`,
+	`history_status`,
+	`history_comments`,
+	`tag`,
+	`scientificName`,
+	`taxonRank`,
+	`in_col`,
+	`matched_by`
+FROM GSDSPACEHOLDER
+WHERE (
+	`GSDSPACEHOLDER`.`gsd_comments` IS NOT NULL OR
+	`GSDSPACEHOLDER`.`gsd_status` IS NOT NULL OR
+	`GSDSPACEHOLDER`.`gsd_comments_predefined` IS NOT NULL)
+;';
+
+/* Old mysql comment which pull GSDs' annotation onto taxa table
 'INSERT INTO taxa ( `id`, `gsd_status`,`gsd_comments`, `gsd_comments_predefined`)  SELECT  `id`, `gsd_status`,`gsd_comments`, `gsd_comments_predefined` FROM GSDSPACEHOLDER WHERE (`GSDSPACEHOLDER`.`gsd_comments` IS NOT NULL OR `GSDSPACEHOLDER`.`gsd_status` IS NOT NULL OR `GSDSPACEHOLDER`.`gsd_comments_predefined` IS NOT NULL) ON DUPLICATE KEY UPDATE taxa.`gsd_status` = CONCAT_WS(" ", taxa.`gsd_status`, CONCAT("GSDSPACEHOLDER: " , GSDSPACEHOLDER.`gsd_status`), ";"), taxa.`gsd_comments`= CONCAT_WS(" ", taxa.`gsd_comments`, CONCAT("GSDSPACEHOLDER: ", GSDSPACEHOLDER.`gsd_comments`, ";")), taxa.`gsd_comments_predefined` = CONCAT_WS(" ", taxa.`gsd_comments_predefined`, CONCAT("GSDSPACEHOLDER: ", GSDSPACEHOLDER.`gsd_comments_predefined`, ";"));';
+*/
 
 foreach ($gsds as $gsd)
 {
@@ -185,10 +327,41 @@ echo $steps[$step_no++];
 if ($debugF) fwrite($dh, $steps[$step_no-1]); // counter already incremented!
 
 $templateTxt = 
+"SELECT
+	'taxonID', 'scientificName', 'taxonRank', 'genus', 'specificEpithet',
+	'scientificNameAuthorship', 'infraspecificEpithet', 'verbatimTaxonRank',
+	'taxonomicStatus', 'acceptedNameUsageID', 'parentNameUsageID', 'family',
+	'order', 'class', 'phylum', 'kingdom', 'higherClassification',
+	'namePublishedIn', 'taxonRemarks',
+	'gsd_status', 'gsd_comments', 'gsd_comments_predefined',
+	'source'
+UNION
+SELECT
+	`taxonID`, `scientificName`, `taxonRank`, `genus`, `specificEpithet`,
+	`scientificNameAuthorship`, `infraspecificEpithet`, `verbatimTaxonRank`,
+	`taxonomicStatus`, `acceptedNameUsageID`, `parentNameUsageID`, `family`,
+	`order`, `class`, `phylum`, `kingdom`, `higherClassification`,
+	`namePublishedIn`, `taxonRemarks`,
+	`gsd_status`, `gsd_comments`, `gsd_comments_predefined`,
+	`source`
+FROM annotated_taxa
+WHERE
+	(`gsd_comments` IS NOT NULL OR
+	 `gsd_status` IS NOT NULL OR
+	 `gsd_comments_predefined` IS NOT NULL) AND
+	provider_id = GBPIDSPACEHOLDER
+INTO OUTFILE 'OUTPUTFILESPACEHOLDER'
+	FIELDS TERMINATED BY '\t'
+	OPTIONALLY ENCLOSED BY '\"'
+	ESCAPED BY ''
+	LINES TERMINATED BY '\\n';";
+
+/* Old mysql output comments exporting taxa table data
 "SELECT 'taxonID', 'scientificName', 'taxonRank', 'genus', 'specificEpithet', 'scientificNameAuthorship', 'infraspecificEpithet', 'verbatimTaxonRank', 'taxonomicStatus', 'acceptedNameUsageID', 'parentNameUsageID', 'family', 'order', 'class', 'phylum', 'kingdom', 'higherClassification', 'namePublishedIn', 'taxonRemarks', 'source'
 UNION
 SELECT `taxonID`, `scientificName`, `taxonRank`, `genus`, `specificEpithet`, `scientificNameAuthorship`, `infraspecificEpithet`, `verbatimTaxonRank`, `taxonomicStatus`, `acceptedNameUsageID`, `parentNameUsageID`, `family`, `order`, `class`, `phylum`, `kingdom`, `higherClassification`, `namePublishedIn`, CONCAT_WS(' ', 'Status:', `gsd_status`, '. Comments:', `gsd_comments`, '; ' ,
 `gsd_comments_predefined`) as `taxonRemarks`, `source` FROM taxa WHERE (`gsd_comments` IS NOT NULL OR `gsd_status` IS NOT NULL OR `gsd_comments_predefined` IS NOT NULL) AND provider_id = GBPIDSPACEHOLDER INTO OUTFILE 'OUTPUTFILESPACEHOLDER' FIELDS TERMINATED BY '\t' OPTIONALLY ENCLOSED BY '\"' ESCAPED BY '' LINES TERMINATED BY '\\n';";
+*/
 
 foreach ($gbps as $gbp)
 	if ($gbp != 'admin')
@@ -273,8 +446,8 @@ WHERE
 GROUP BY provider) AS ann
 ON gsd.provider=ann.provider GROUP BY gsd.provider';
 
-// Need to include protoGSD in statistic data
-$gsds[] = 'protoGSD';
+// Need to include Unplaced_Names in statistic data
+$gsds[] = 'Unplaced_Names';
 
 // do mysql here
 $data = '';			// Initial $data as empty string
@@ -294,8 +467,6 @@ foreach ($gsds as $gsd)
 
 	if ($debugF) fwrite($dh, $query . "\n");
 	if (!$dryRunF) $db->query2($query);
-
-//	$db->query2($query);
 
 	for($i = 0; $i < $db->num_rows(); $i++)
 	{

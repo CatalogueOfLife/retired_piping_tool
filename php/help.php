@@ -18,15 +18,6 @@ logincheck();
 // mysqli connection.
 $db = new DB ($DB_hostname, $DB_username, $DB_password, $DB_databasename);
 
-
-//////////////////////////////////////////////////////////////////////////
-// At the moment this page just a dummy page. Later in the project, this
-// page will display useful status information for each user. i.e. summary
-// of changes of their input data for data provider, number of newly
-// assign taxa for GSD and some useful summary highlight for admin etc.
-//////////////////////////////////////////////////////////////////////////
-
-
 // Pre-process the message data for security
 if(isset($_GET['message']))
 	$message  = $db->clean($_GET["message"], 128);

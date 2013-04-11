@@ -98,7 +98,7 @@ $menu = new Menu($_SESSION['role']);
 // pass menu to template
 $smarty->assign('menu', $menu->get());
 
-$smarty->assign('page_title', 'Piping Tools Delete Tagged Data');
+$smarty->assign('page_title', 'Piping Tools Uploaded Data Summary');
 $smarty->assign('template', 'tagDelete.tpl');
 
 // Get the name of the current script file, and have the specific page's

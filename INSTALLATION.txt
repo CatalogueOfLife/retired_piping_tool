@@ -203,12 +203,16 @@ define ('LOG_DWC_URL', 'http://salx9-vm9.rdg.ac.uk/piping_devel/log/dwc.log?dumm
 ------------------------------------------------
 	.htaccess
 
-14. Change owner and group for all directories and files under server root
+14. Copy files into shell directory
+-----------------------------------
+	piping.sh
+
+15. Change owner and group for all directories and files under server root
 --------------------------------------------------------------------------
 e.g.
 $ sudo chown -R www-data:www-data *
 
-15. Change setting of php.ini file
+16. Change setting of php.ini file
 ----------------------------------
 The file likely in /etc/php5/apache2/php.ini
 
@@ -219,3 +223,11 @@ maximum execution time = 3000
 
 might have to change other errors reporting options as well
 to suppress errors notices.
+
+17. To setup up cron job to run Piping Tools
+--------------------------------------------
+Edit this file:
+	shell/piping.sh
+
+by changing log files' paths to local server settings and execute piping.sh in
+a cron job.

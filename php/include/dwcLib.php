@@ -51,14 +51,14 @@ function inputDwCtoBuffer2(
 		// Open meta.xml file which define the data file format
 		$metaFileObject = simplexml_load_file($meta_file);
 		$core = $metaFileObject->core;
-		$delimit_char = $core[fieldsTerminatedBy];
-		$enclose_char = $core[fieldsEnclosedBy];
-		$no_first_row = $core[ignoreHeaderLines];
+		$delimit_char = $core['fieldsTerminatedBy'];
+		$enclose_char = $core['fieldsEnclosedBy'];
+		$no_first_row = $core['ignoreHeaderLines'];
 
 		// read in all the field names
 		foreach ($core->field as $field)
 		{
-			$fieldNames[] = basename($field[term]);
+			$fieldNames[] = basename($field['term']);
 		}
 
 		// check does it have taxonID field, if no taxonID put this

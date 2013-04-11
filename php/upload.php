@@ -67,7 +67,7 @@ $menu = new Menu($_SESSION['role']);
 $smarty->assign('menu', $menu->get());
 
 // set up page title
-$smarty->assign('page_title', 'Piping Tools Data Uploading');
+$smarty->assign('page_title', 'Piping Tools Manually Data Uploading');
 
 // set up page specific template
 $smarty->assign('template', 'upload.tpl');

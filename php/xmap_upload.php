@@ -105,7 +105,8 @@ if (isset($_POST['upload']) && !empty($_FILES['filename']['tmp_name']))
 
 		// remove carriage return which would case problem
 		// should code this a bit better, but I'm in a hurry to get this fix.
-		`/usr/bin/tr -d '\015' < $full_path > $csv_full_path`;
+		// Also need to remove 3 funny character at the beginning of the file!
+		`/usr/bin/tr -d '\015\357\273\277' < $full_path > $csv_full_path`;
 	}
 
 	// need to test upload file ok first

@@ -84,7 +84,7 @@ $menu = new Menu($_SESSION['role']);
 // pass menu to template
 $smarty->assign('menu', $menu->get());
 
-$smarty->assign('page_title', 'Piping Tools DwC Uploading Page');
+$smarty->assign('page_title', 'Piping Tools DwC-A Uploading');
 $smarty->assign('template', 'dwc.tpl');
 
 // Get the name of the current script file, and have the specific page's

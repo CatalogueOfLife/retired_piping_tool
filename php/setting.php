@@ -141,7 +141,7 @@ elseif (isset($_POST['load_col_data']) && $_SESSION['username'] == 'admin')
 		$txt3 = ');' . "\n";
 		$txt4 = "UPDATE $DB_databasename" .
 				'.taxa SET taxa.matched_by = "no match", '.
-				'taxa.gsd_short_name = "protoGSD" '.
+				'taxa.gsd_short_name = "Unplaced_Names" '.
 				'WHERE (taxa.matched_by IS NULL) AND '.
 				'(taxa.gsd_short_name IS NULL);' . "\n";
 		$txt5 = "UPDATE $DB_databasename" .  '.taxa SET taxa.matched_by = "' .
@@ -151,8 +151,6 @@ elseif (isset($_POST['load_col_data']) && $_SESSION['username'] == 'admin')
 		for($i = 0 ; $i < $CoL_db->num_rows(); $i++)
 		{
 			$results = $CoL_db->fetch();
-
-			fwrite($mysql_file_h, $txt1);
 
 			////////////////
 			// database_name
@@ -176,40 +174,50 @@ elseif (isset($_POST['load_col_data']) && $_SESSION['username'] == 'admin')
 			$database_name = 
 				preg_replace($patterns, $replacements, $results[0]);
 
-			fwrite($mysql_file_h, $database_name);
-			fwrite($mysql_file_h, $txt2);
-
 			/////////////////////////////
 			// value of $taxonLevel lists
 			/////////////////////////////
-
-		//	$taxonLists = explode(',', $results[1]);
-
 			// need to remove any empty elements
 			$taxonListsUnclean = explode(',', $results[1]);
 
 			// initialize $taxonLists
 			$taxonLists = array();
 
-			// remove any empty value
+			// remove any empty value and 'Not assigned'
 			foreach($taxonListsUnclean as $element)
-				if ($element)
+				if ( $element &&
+					($element != 'Not assigned') &&
+					($element != 'Not Assigned')
+				)
 					$taxonLists[] = $element;
 
-			// first element of the lists treated differently
-			fwrite($mysql_file_h, '"' . array_shift($taxonLists) . '"');
+			// Make sure $taxonLists is not empty
+			if (count($taxonLists) > 0)
+			{
+				// Write out matching rule mysql script for this taxon
+				fwrite($mysql_file_h, $txt1);
 
-			// rest of the list and this foreach loop should not execute if
-			// there is only one element on the $taxonLists array
-			foreach($taxonLists as $list)
-				fwrite($mysql_file_h, ', "' . $list . '"');
+				fwrite($mysql_file_h, $database_name);
+				fwrite($mysql_file_h, $txt2);
 
-			// end of the line
-			fwrite($mysql_file_h, $txt3);
+				// first element of the lists treated differently
+				fwrite($mysql_file_h, '"' . array_shift($taxonLists) . '"');
+
+				// rest of the list and this foreach loop should not execute if
+				// there is only one element on the $taxonLists array
+				foreach($taxonLists as $list)
+					fwrite($mysql_file_h, ', "' . $list . '"');
+
+				// end of the line
+				fwrite($mysql_file_h, $txt3);
+			}
 		}
 
-		if ($taxonLevel == 'genus')
-			fwrite($mysql_file_h, $txt4);
+		// This two lines are taken out as we no longer assign record
+		// which is unplaced as gsd_short_name:'Unplaced_Names' and
+		// matched_by:'no match'.
+		//if ($taxonLevel == 'genus')
+			//fwrite($mysql_file_h, $txt4);
 
 		fwrite($mysql_file_h, $txt5);
 
@@ -327,7 +335,7 @@ $menu = new Menu($_SESSION['role']);
 // pass menu to template
 $smarty->assign('menu', $menu->get());
 
-$smarty->assign('page_title', 'Piping Tools Setting Page');
+$smarty->assign('page_title', 'Piping Tools Settings');
 $smarty->assign('template', 'setting.tpl');
 
 // Get the name of the current script file, and have the specific page's

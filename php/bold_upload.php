@@ -129,7 +129,11 @@ if (isset($_POST['upload']) && !empty($_FILES['filename']['tmp_name']))
 		
 		// remove carriage return which would case problem futher down the line
 		// should code this a bit better, but I'm in a hurry to get this fix.
-		`/usr/bin/tr -d '\015' < $full_path > $csv_full_path`;
+
+		//`/usr/bin/tr -d '\015' < $full_path > $csv_full_path`;
+
+		// Also remove BOM as well.
+		`/usr/bin/tr -d '\015\357\273\277' < $full_path > $csv_full_path`;
 	}
 
 	// need to test upload file ok first
