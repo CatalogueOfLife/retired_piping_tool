@@ -212,17 +212,25 @@ define ('LOG_DWC_URL', 'http://salx9-vm9.rdg.ac.uk/piping_devel/log/dwc.log?dumm
 e.g.
 $ sudo chown -R www-data:www-data *
 
-16. Change setting of php.ini file
-----------------------------------
-The file likely in /etc/php5/apache2/php.ini
-
+16. Change setting of php.ini files
+-----------------------------------
+The file for web page setting is likely to be in /etc/php5/apache2/php.ini
 Set the following:
+
 post_max_size = 1G
 upload_max_filesizse = 1G
 maximum execution time = 3000
 
 might have to change other errors reporting options as well
 to suppress errors notices.
+
+
+The file for command line setting is likely to be in /etc/php5/cli/php.ini
+This setting is needed for scheduler.php & schedular_pmonit.php to restart
+if mysql server is down.
+
+; Allow or prevent reconnect
+mysqli.reconnect = On
 
 17. To setup up cron job to run Piping Tools
 --------------------------------------------

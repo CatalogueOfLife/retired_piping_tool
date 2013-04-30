@@ -188,6 +188,9 @@ $templateTxt3 =
 $templateTxt4 =
 'INSERT INTO annotated_taxa (
 	`id`,
+
+	`taxonRemarks`,
+
 	`gsd_status`,
 	`gsd_comments`,
 	`gsd_comments_predefined`,
@@ -208,7 +211,6 @@ $templateTxt4 =
 	`kingdom`,
 	`higherClassification`,
 	`namePublishedIn`,
-	`taxonRemarks`,
 	`source`,
 	`updated`,
 	`provider_id`, 
@@ -223,6 +225,10 @@ $templateTxt4 =
 )
 SELECT
 	`id`,
+
+	CONCAT_WS("|", `gsd_short_name`, `gsd_status`, `gsd_comments`,
+	`gsd_comments_predefined`),
+
 	`gsd_status`,
 	`gsd_comments`,
 	`gsd_comments_predefined`,
@@ -243,7 +249,6 @@ SELECT
 	`kingdom`,
 	`higherClassification`,
 	`namePublishedIn`,
-	`taxonRemarks`,
 	`source`,
 	`updated`,
 	`provider`, 
@@ -314,7 +319,9 @@ foreach ($gbps as $gbp)
 		`/bin/chmod 777 $gbp_dir`;
 
 		$dot_htaccess = GBP_WEB_PROTO . ".htaccess";
+		$meta_dot_xml = GBP_WEB_PROTO . "meta.xml";
 		`cp -p $dot_htaccess $gbp_dir`;
+		`cp -p $meta_dot_xml $gbp_dir`;
 	}
 
 ///////////////////////////////////////////////////////////////////
@@ -333,7 +340,6 @@ $templateTxt =
 	'taxonomicStatus', 'acceptedNameUsageID', 'parentNameUsageID', 'family',
 	'order', 'class', 'phylum', 'kingdom', 'higherClassification',
 	'namePublishedIn', 'taxonRemarks',
-	'gsd_status', 'gsd_comments', 'gsd_comments_predefined',
 	'source'
 UNION
 SELECT
@@ -342,7 +348,6 @@ SELECT
 	`taxonomicStatus`, `acceptedNameUsageID`, `parentNameUsageID`, `family`,
 	`order`, `class`, `phylum`, `kingdom`, `higherClassification`,
 	`namePublishedIn`, `taxonRemarks`,
-	`gsd_status`, `gsd_comments`, `gsd_comments_predefined`,
 	`source`
 FROM annotated_taxa
 WHERE
@@ -376,6 +381,7 @@ foreach ($gbps as $gbp)
 		$dataProviderID = $results['userid'];
 
 		$outputFile =	GBP_WEB . $gbp . "/annotated.txt";
+		$xmlFile =		GBP_WEB . $gbp . "/meta.xml";
 		$zipFile =		GBP_WEB . $gbp . "/annotated.zip";
 
 		$query =
@@ -395,8 +401,10 @@ foreach ($gbps as $gbp)
 		{
 				chdir(GBP_WEB . $gbp);
 				$zip->addFile('annotated.txt');
+				$zip->addFile('meta.xml');
 				$zip->close();
 				unlink($outputFile);
+				unlink($xmlFile);
 		}
 	}
 

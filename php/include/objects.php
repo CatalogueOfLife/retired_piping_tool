@@ -28,10 +28,30 @@ class DB
 	{
 		if ($this->dbh == NULL)
 		{
-			$this->dbh = new mysqli($host, $user, $password, $database);
-			if ($this->dbh->connect_error)
-				die('Connect Error (' . $this->dbh->connect_errno . ') '
-						. $this->dbh->connect_error);
+			do
+			{
+				$this->dbh = new mysqli($host, $user, $password, $database);
+
+				//if ($this->dbh->connect_error)
+				// Have to use mysqli_connect_error(), as fetching object dbh
+				// property would fail if there is no connection with
+				// mysql server
+				if (mysqli_connect_error())
+				{
+					// die('Connect Error (' . $this->dbh->connect_errno . ') '
+					//		. $this->dbh->connect_error);
+
+					//echo "Can't connect to mysql, I write this line!!!";
+
+					$connected = false;
+					sleep(60);
+				}
+				else
+				{
+					// connected ok.
+					$connected = true;
+				}
+			} while (!$connected);
 		}
 		// else reuse existing connection
 	}
@@ -39,6 +59,10 @@ class DB
 	// Query from database
 	public function query($query_string)
 	{
+		// if mysql server is not running, wait a minute and test again.
+		while (!$this->dbh->ping())
+			sleep(60);
+
 		if (!($this->result = $this->dbh->query($query_string)))
 			die('Query Error (' . $this->dbh->errno . ') '
 					. $this->dbh->error);
@@ -49,6 +73,10 @@ class DB
 	// where there is a mysql query error
 	public function query2($query_string)
 	{
+		// if mysql server is not running, wait a minute and test again.
+		while (!$this->dbh->ping())
+			sleep(60);
+
 		if (!($this->result = $this->dbh->query($query_string)))
 			echo(	"\n" . $query_string . "\n" .
 					'Query Error (' . $this->dbh->errno . ') '

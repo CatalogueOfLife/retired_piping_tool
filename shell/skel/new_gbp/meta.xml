@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<archive xmlns='http://rs.tdwg.org/dwc/text/'
+    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+    xsi:schemaLocation='http://rs.tdwg.org/dwc/text/ http://rs.tdwg.org/dwc/text/tdwg_dwc_text.xsd'>
+   
+    <core encoding='UTF-8' fieldsEnclosedBy='' fieldsTerminatedBy='\t' linesTerminatedBy='\n' ignoreHeaderLines='1' rowType='http://rs.tdwg.org/dwc/terms/Taxon'>    
+    <files>
+        <location>annotated.txt</location>
+    </files>
+    <id index='0' />
+    <!-- taxon id -->
+    <field index="0" term="http://rs.tdwg.org/dwc/terms/taxonID"/>
+    <!-- scientificName -->
+    <field index="1" term="http://rs.tdwg.org/dwc/terms/scientificName"/>
+    <!-- taxonRank -->
+    <field index="2" term="http://rs.tdwg.org/dwc/terms/taxonRank"/>
+    <!-- genus -->
+    <field index='3' term='http://rs.tdwg.org/dwc/terms/genus'/>
+    <!-- specificEpithet -->
+    <field index='4' term='http://rs.tdwg.org/dwc/terms/specificEpithet'/>  
+    <!-- scientificNameAuthorship -->
+    <field index='5' term='http://rs.tdwg.org/dwc/terms/scientificNameAuthorship'/>
+    <!-- infraspecificEpithet -->
+    <field index='6' term='http://rs.tdwg.org/dwc/terms/infraspecificEpithet'/> 
+    <!-- verbatimTaxonRank -->
+    <field index='7' term='http://rs.tdwg.org/dwc/terms/verbatimTaxonRank'/>
+    <!-- taxonomicStatus -->
+    <field index='8' term='http://rs.tdwg.org/dwc/terms/taxonomicStatus'/>
+    <!-- acceptedNameUsageID -->
+    <field index='9' term='http://rs.tdwg.org/dwc/terms/acceptedNameUsageID'/>
+    <!-- parentNameUsageID -->
+    <field index='10' term='http://rs.tdwg.org/dwc/terms/parentNameUsageID'/>
+    <!-- family -->
+    <field index='11' term='http://rs.tdwg.org/dwc/terms/family'/>
+    <!-- order -->
+    <field index='12' term='http://rs.tdwg.org/dwc/terms/order'/>
+    <!-- class -->
+    <field index='13' term='http://rs.tdwg.org/dwc/terms/class'/>
+    <!-- phylum -->
+    <field index='14' term='http://rs.tdwg.org/dwc/terms/phylum'/>
+    <!-- kingdom -->
+    <field index='15' term='http://rs.tdwg.org/dwc/terms/kingdom'/>
+    <!-- higherClassification -->
+    <field index='16' term='http://rs.tdwg.org/dwc/terms/higherClassification'/>
+    <!-- namePublishedIn -->
+    <field index='17' term='http://rs.tdwg.org/dwc/terms/namePublishedIn'/>
+    <!-- taxonRemarks -->
+    <field index='18' term='http://rs.tdwg.org/dwc/terms/taxonRemarks'/>
+    <!-- source -->
+    <field index='19' term='http://rs.tdwg.org/dwc/terms/source'/>
+    </core>
+</archive>
+</xml>

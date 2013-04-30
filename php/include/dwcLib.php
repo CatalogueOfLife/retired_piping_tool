@@ -145,8 +145,38 @@ function inputDwCtoBuffer2(
 	$query .= "tag = '$tag'";
 
 	$db->query($query);
-//echo $query;
-//return;
+
+	/////////////////////////////////////////////
+	// Make sure there is specificEpithet field /
+	/////////////////////////////////////////////
+
+	// Check buffer table do indeed has this field,
+	// IUCN data don't have this field and we need
+	// to create one first, use $fieldNames array to
+	// check this.
+	$position = array_search('specificEpithet', $fieldNames);
+	if ($position === false)
+	{
+		// Create this field in buffer table and add this field in
+		// $fieldNames array
+		$query = "ALTER TABLE buffer ".
+				 "ADD specificEpithet VARCHAR(512) DEFAULT NULL";
+
+		$db->query($query);
+
+		$fieldNames[] = 'specificEpithet';
+	}
+
+	///////////////////////////////////////////////////
+	// Filled in specificEpithet field if it is empty /
+	///////////////////////////////////////////////////
+
+	$query = "UPDATE buffer SET specificEpithet = ".
+			 "SUBSTRING_INDEX(scientificName, ' ', -1) ".
+			 "WHERE specificEpithet IS NULL OR ".
+			 "specificEpithet = '';";
+
+	$db->query($query);
 
 	//////////////////////////////////////////////
 	// move data from buffer table to taxa table /
@@ -202,81 +232,5 @@ function inputDwCtoBuffer2(
 			  "`in_col`=`in_col`";
 //echo $query;
 	$db->query($query);
-
-/*
-	// generate mysql query field input
-	$query_field = '';
-	foreach ($gbp_info->inputField as $field)
-		$query_field .= "`" . $field . "`,";
-	// remove the last ','
-	$query_field = preg_replace("/,$/", "", $query_field);
-
-	// set up some hard-coded option and will change to runtime dependent in
-	// later days
-
-	// set up other uploading options
-
-	//$delimit_char = "\t";
-	switch ($gbp_info->delimitor)
-	{
-		case "comma"		: $delimit_char = ",";
-			break;
-		case "semicolon"	: $delimit_char = ";";
-			break;
-		case "tab"			: $delimit_char = "\t";
-			break;
-		case "space"		: $delimit_char = " ";
-			break;
-	}
-
-	//$enclose_char = "";
-	switch ($gbp_info->enclose_by)
-	{
-		case "d_quote"		: $enclose_char = '"';
-			break;
-		case "s_quote"		: $enclose_char = "\'";
-			break;
-		case "none"			: $enclose_char = "";
-			break;
-	}
-
-	// clear user buffer table first
-	// if don't clear it first, all the previous record would import
-	// into taxa table.
-	$query = "TRUNCATE TABLE $gbp";
-	$db->query($query);
-
-	// mysql query command to uploading input buffer
-	$query = "LOAD DATA LOCAL INFILE '$full_path' ".
-			 "INTO TABLE $gbp FIELDS ".
-			 "TERMINATED BY '$delimit_char' ".
-			 "OPTIONALLY ENCLOSED BY '$enclose_char' ";
-
-	// if ignore first row option is selected
-	if ($gbp_info->no_first_row)
-		$query .= "IGNORE 1 LINES ";
-
-	$query .= "($query_field) ";
-	$query .= "SET provider_id = '$gbp_info->userid',";
-	$query .= "tag = '$tag'";
-
-	$db->query($query);
-
-	//////////////////////////////////////////////////////
-	// Transformation section, from buffer to taxa table /
-	//////////////////////////////////////////////////////
-
-	$query = $gbp_info->mysql_script;
-	$db->query($query);
-
-	// The above two lines have been changed so now it can
-	// have multiple queries. Note queries are separated
-	// by ';'.
-	$queries = explode(';', $gbp_info->mysql_script);
-	foreach ($queries as $query)
-	{
-		$db->query($query);
-	}
-*/
 }
 ?>
