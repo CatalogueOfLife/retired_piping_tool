@@ -226,7 +226,7 @@ $templateTxt4 =
 SELECT
 	`id`,
 
-	CONCAT_WS("|", `gsd_short_name`, `gsd_status`, `gsd_comments`,
+	CONCAT_WS(":", "GSDSPACEHOLDER", `gsd_status`, `gsd_comments`,
 	`gsd_comments_predefined`),
 
 	`gsd_status`,
@@ -435,13 +435,13 @@ FROM GSDNAMEHOLDER AS gsd LEFT JOIN user u ON gsd.provider=u.userid LEFT JOIN
 	provider,
 	count(*) as Approved
 FROM GSDNAMEHOLDER
-WHERE gsd_status = "Approved" GROUP BY provider) AS appr
+WHERE gsd_status LIKE "%placed%" GROUP BY provider) AS appr
 ON gsd.provider=appr.provider LEFT JOIN
 (SELECT
 	provider,
 	count(*) as Rejected
 FROM GSDNAMEHOLDER
-WHERE gsd_status = "Rejected" GROUP BY provider) AS rej
+WHERE gsd_status LIKE "%rejected%" GROUP BY provider) AS rej
 ON gsd.provider=rej.provider LEFT JOIN
 (SELECT
 	provider,
@@ -492,7 +492,7 @@ foreach ($gsds as $gsd)
 	}
 }
 
-$header	=	"GSD\tGP\tTotal piped\tApproved\tRejected\tAnnotated\n";
+$header	=	"GSD\tGP\tTotal piped\tPlaced\tRejected\tAnnotated\n";
 
 $dataString =	"<pre>\n" .
 				// put data info in here

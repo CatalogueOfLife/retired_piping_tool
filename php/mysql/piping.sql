@@ -362,7 +362,7 @@ CREATE TABLE `piping_devel`.`taxa` (
 		COMMENT 'ID of provider as in providers table',
 	`gsd_comments` varchar(500) DEFAULT NULL COMMENT 'feedback from gsds',
 	`gsd_comments_predefined` varchar(500) DEFAULT NULL,
-	`gsd_short_name` varchar(150) DEFAULT NULL
+	`gsd_short_name` varchar(500) DEFAULT NULL
 		COMMENT 'abbreviation of GSD for which the name has been assigned',
 	`gsd_status` varchar(45) DEFAULT NULL
 		COMMENT 'Accepter or Rejected. Explanation of decision is stored
