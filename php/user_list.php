@@ -74,7 +74,32 @@ elseif (isset($_POST['addNew']))
 		//		$role = $db->clean($_POST['role'], 8);
 				$role = 'GBP';
 
-				$user->insert_user($db, $name, $c_password, $role);
+				$down_load_url =
+					$db->clean($_POST['down_load_url'], 256);
+
+				$down_load_file =
+					$db->clean($_POST['down_load_file'], 256);
+
+				$down_load_username =
+					$db->clean($_POST['down_load_username'], 64);
+
+				$down_load_password =
+					$db->clean($_POST['down_load_password'], 64);
+
+				$taxa_file =
+					$db->clean($_POST['taxa_file'], 128);
+
+				$user->insert_user(
+										$db,
+										$name,
+										$c_password,
+										$role,
+										$down_load_url,
+										$down_load_file,
+										$down_load_username,
+										$down_load_password,
+										$taxa_file
+									);
 
 				// after new user been added.
 				$message = "Added new user: $name";
@@ -237,9 +262,14 @@ elseif (isset($_POST['deleteUser']) && isset($_POST['users']))
 	$user = new User($db);
 
 	$count = 0;		// count number of users been deleted
+	$record_deleted = 0; // count number of taxa records been deleted
+
 	foreach($_POST['users'] as $id)
 	{
 		$c_id = $db->clean($id, 6);
+
+		// delete taxa record of this $c_id first
+		$record_deleted += ($user->delete_taxa_records($db, $c_id));
 
 		// if delete does not have error, it will return 0
 		if (!$user->delete($db, $c_id))
@@ -247,7 +277,7 @@ elseif (isset($_POST['deleteUser']) && isset($_POST['users']))
 	}
 
 	// deleted selected users
-	$message = "Deleted $count users. ";
+	$message = "Deleted $count users and $record_deleted taxa records. ";
 
 	// display the resulting user list
 	if ($user->num_rows() == 0)

@@ -239,3 +239,29 @@ Edit this file:
 
 by changing log files' paths to local server settings and execute piping.sh in
 a cron job.
+
+
+18. Adding and deleting users/data providers)
+---------------------------------------------
+Piping Tools have the followings users/data providers pre-installed:
+	ENA
+	CBOL
+	GBIF
+	IUCN
+	Mycobank
+	BOLD
+	EoL
+
+On 'User List' page, new users can be created as well as existing
+users can be deleted. Please note that for Piping Tools to work correctly,
+each user would need a user directory named the same as that user under
+users' base directory which is defined in setup.php. (e.g. For GBIF this
+would be: [Users' base dir]/GBIF
+
+When new users are created, these directories will need to be created on the
+server manually as Piping Tools will not create them automatically.
+Similarly, when a user is deleted in Piping Tools, that user's directory will
+not be deleted automatically and it will remain on the server.
+
+However, when a user is deleted, all the records on 'taxa' table of that
+user would also be deleted.

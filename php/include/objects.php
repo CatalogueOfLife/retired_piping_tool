@@ -310,15 +310,32 @@ Class User extends Table
 	}
 
 	// insert_user() inserts new user into the table
-	public function insert_user(DB $db, $username, $password, $role)
+	public function insert_user(
+				DB $db,
+				$username,
+				$password,
+				$role,
+				$down_load_url='',
+				$down_load_file='',
+				$down_load_username='',
+				$down_load_password='',
+				$taxa_file=''
+	)
 	{
 		// get next userid
 		$userid = self::next_id($db);
 
 		// do the actual insertion
 		$query = "INSERT INTO user ".
-				 "(userid, username, password, role) VALUES ".
-				 "($userid, '$username', '$password', '$role')";
+				 "(userid, username, password, role, ".
+				 "down_load_url, down_load_file, ".
+				 "down_load_username, down_load_password, ".
+				 "taxa_file) VALUES ".
+				 "($userid, '$username', '$password', '$role', ".
+				 "'$down_load_url', '$down_load_file', ".
+				 "'$down_load_username', '$down_load_password', ".
+				 "'$taxa_file')";
+
 		$db->query($query);
 
 		// after insertion, need to update all the properties
@@ -376,7 +393,7 @@ Class User extends Table
 	// delete() delete user with $userid
 	public function delete(DB $db, $userid)
 	{
-		// check make sure user is not admin which has userid = 1 
+		// check make sure user is not admin which has userid = 0 
 		if ($userid != 0)
 		{
 			parent::delete_row($db, 'userid', $userid);
@@ -390,6 +407,29 @@ Class User extends Table
 			$error_code = 1;
 
 		return $error_code;
+	}
+
+	// delete_taxa_records() delete records in taxa table with the given
+	// $provider_id
+	public function delete_taxa_records(DB $db, $provider_id)
+	{
+		$record_no = 0;		// store number of deleted records
+
+		// find out how many records going to be deleted
+		$query = "SELECT COUNT(*) FROM taxa ";
+		$query .= "WHERE provider_id = '$provider_id'";
+
+		$db->query($query);
+		$result = $db->fetch();
+		$record_no = $result['COUNT(*)'];
+
+		// delete tagged records
+		$query  = "DELETE FROM taxa ";
+		$query .= "WHERE provider_id = '$provider_id'";
+
+		$db->query($query);
+
+		return $record_no;
 	}
 }	// End of User object definition
 

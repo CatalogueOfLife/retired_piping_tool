@@ -43,17 +43,13 @@
 
 </table>
 <br />
-{* disable this
 <input name='addUser' type='submit' value='Add User' />
-*}
 
 {*<input name='editUser' type='submit' value='Edit Selected Users' />*}
 <input name='editUser' type='submit' value="Change Selected Users' Settings" />
 
-{* disable this
 <input name='deleteUser' type='submit' value='Delete Selected Users'
 	style="color:red" />
-*}
 
 {************************}
 {* no user in the table *}
@@ -86,6 +82,31 @@
 	</td>
 </tr>
 *}
+
+<tr>
+	<td>Down Load URL:</td>
+	<td><input name='down_load_url' size="80" /></td>
+</tr>
+
+<tr>
+	<td>Down Load Zip File Name:</td>
+	<td><input name='down_load_file' /></td>
+</tr>
+
+<tr>
+	<td>Down Load Username:</td>
+	<td><input name='down_load_username' /></td>
+</tr>
+
+<tr>
+	<td>Down Load Password:</td>
+	<td><input name='down_load_password' /></td>
+</tr>
+
+<tr>
+	<td>Data File Name:</td>
+	<td><input name='taxa_file' /></td>
+</tr>
 
 <tr>
 	<td></td>

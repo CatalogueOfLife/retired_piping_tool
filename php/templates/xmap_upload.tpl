@@ -189,11 +189,19 @@ function addField(selected_items, newField)
 <td>Data Provider:</td>
 <td>
 	<select name="dataProvider">
+{*
 		<option value="ENA"     >ENA     </option>
 		<option value="CBOL"    >CBOL    </option>
 		<option value="GBIF"    >GBIF    </option>
 		<option value="IUCN"    >IUCN    </option>
 		<option value="Mycobank">Mycobank</option>
+*}
+
+{section name=row loop=$provider}
+		<option value="{$provider[row]['username']}">
+					{$provider[row]['username']}</option>
+{/section}
+
 	</select>
 </td>
 {*

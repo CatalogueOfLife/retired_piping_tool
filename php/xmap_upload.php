@@ -44,6 +44,9 @@ $taxa = new Taxa(
 					''		// offset
 				);
 
+// Create User object which is needed to create pull down menu of providers
+$user = new User($db);
+
 // Pre-process the message data for security
 if(isset($_GET['message']))
 	$message = $db->clean($_GET["message"], 128);
@@ -61,6 +64,9 @@ $smarty->assign('menu', $menu->get());
 
 // set up page title
 $smarty->assign('page_title', 'Piping Tools X-map Data Uploading');
+
+// set up provider pull down menu
+$smarty->assign('provider', $user->get_result());
 
 // set up page specific template
 $smarty->assign('template', 'xmap_upload.tpl');
