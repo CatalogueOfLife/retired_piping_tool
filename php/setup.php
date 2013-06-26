@@ -11,53 +11,53 @@
 ///////////////////////////////////////////////////////////////
 
 // define Smarty lib directory
-define ('SMARTY_DIR', '/usr/local/lib/php/Smarty/');
+define ('SMARTY_DIR', '/usr/local/lib/Smarty/libs/');
 
 // define server root directory
-define ('ROOT_DIR', '/var/www/piping_devel/php/');
+define ('ROOT_DIR', '/var/www/piping_devel/');
 
 // define user's base directory
-define ('USER_BASE_DIR', '/var/www/piping_devel/');
+define ('USER_BASE_DIR', ROOT_DIR);
 
 // define mysqlScripts directory which store automatic generated
 // scripts for piping
-define ('MYSQLSCRIPTS', '/var/www/piping_devel/php/mysql/');
+define ('MYSQLSCRIPTS', ROOT_DIR . 'php/mysql/');
 
 // define GSD webservice directory
-define ('GSD_WEB', '/var/www/piping_devel/webservice/gsd/');
+define ('GSD_WEB', ROOT_DIR . 'webservice/gsd/');
 
 // define GSD prototype directory
-define ('GSD_WEB_PROTO', '/var/www/piping_devel/shell/skel/new_gsd/');
+define ('GSD_WEB_PROTO', ROOT_DIR . 'shell/skel/new_gsd/');
 
 // define GBP webservice directory
-define ('GBP_WEB', '/var/www/piping_devel/webservice/gbp/');
+define ('GBP_WEB', ROOT_DIR . 'webservice/gbp/');
 
 // define GBP prototype directory
-define ('GBP_WEB_PROTO', '/var/www/piping_devel/shell/skel/new_gbp/');
+define ('GBP_WEB_PROTO', ROOT_DIR . 'shell/skel/new_gbp/');
 
 // define RSS webservice directory
-define ('RSS_WEB', '/var/www/piping_devel/webservice/rss/');
+define ('RSS_WEB', ROOT_DIR . 'webservice/rss/');
 
 // define scheduler debug file and path
-define ('DEBUG', '/var/www/piping_devel/php/debug/debug.txt');
+define ('DEBUG', ROOT_DIR . 'php/debug/debug.txt');
 
 // define scheduler log file and path
-define ('LOG', '/var/www/piping_devel/php/log/scheduler.log');
+define ('LOG', ROOT_DIR . 'php/log/scheduler.log');
 
 // define scheduler log file URL.
 define ('LOG_URL', '/piping_devel/log/scheduler.log');
 
 // define scheduler_pmonit debug file and path
-define ('DEBUG_PM', '/var/www/piping_devel/php/debug/debug_pm.txt');
+define ('DEBUG_PM', ROOT_DIR . 'php/debug/debug_pm.txt');
 
 // define scheduler_pmonit log file and path
-define ('LOG_PM', '/var/www/piping_devel/php/log/scheduler_pm.log');
+define ('LOG_PM', ROOT_DIR . 'php/log/scheduler_pm.log');
 
 // define scheduler_pmonit log file URL.
 define ('LOG_PM_URL', '/piping_devel/log/scheduler_pm.log');
 
 // define dwc log file and path
-define ('LOG_DWC', '/var/www/piping_devel/php/log/dwc.log');
+define ('LOG_DWC', ROOT_DIR . 'php/log/dwc.log');
 
 // define dwc loading log file URL.
 define ('LOG_DWC_URL', '/piping_devel/log/dwc.log');
@@ -68,7 +68,7 @@ define ('LOG_DWC_URL', '/piping_devel/log/dwc.log');
 ///////////////////////////////////////////////////////////////
 
 // define include directory
-define ('INCLUDE_DIR', ROOT_DIR . 'include/');
+define ('INCLUDE_DIR', ROOT_DIR . 'php/include/');
 
 // load Smarty library
 require_once(SMARTY_DIR . 'Smarty.class.php');

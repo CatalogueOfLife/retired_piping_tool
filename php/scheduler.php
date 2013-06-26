@@ -240,7 +240,7 @@ $templateTxt =
 `provider` varchar(24),
 `gsd_comments` varchar(500) COLLATE utf8_general_ci DEFAULT NULL,
 `gsd_comments_predefined` enum('comment1','comment2','comment3') COLLATE utf8_general_ci DEFAULT NULL,
-`gsd_short_name` varchar(255) COLLATE utf8_general_ci DEFAULT NULL,
+`gsd_short_name` varchar(500) COLLATE utf8_general_ci DEFAULT NULL,
 `gsd_status` enum('Approved','Rejected') DEFAULT NULL,
 `history_status` int(10) DEFAULT NULL,
 `history_comments` varchar(255) COLLATE utf8_general_ci DEFAULT NULL,
@@ -396,6 +396,9 @@ function rm_dir($dir)
 	foreach (new  RecursiveIteratorIterator( $iter,
 						RecursiveIteratorIterator::CHILD_FIRST) as $f)
 	{
+		$filename = $f->getFilename();
+		if ($filename === '.' || $filename === '..')
+			continue;
 		if ($f->isDir())
 			rmdir($f->getPathname());
 		else

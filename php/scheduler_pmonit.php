@@ -530,6 +530,9 @@ function rm_dir($dir)
 	foreach (new  RecursiveIteratorIterator( $iter,
 						RecursiveIteratorIterator::CHILD_FIRST) as $f)
 	{
+		$filename = $f->getFilename();
+		if ($filename === '.' || $filename === '..')
+			continue;
 		if ($f->isDir())
 			rmdir($f->getPathname());
 		else

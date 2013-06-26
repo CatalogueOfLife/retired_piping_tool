@@ -35,7 +35,7 @@ $taxa = new Taxa(
 
 // log file
 $log = LOG_DWC;
-$dwc = ROOT_DIR . 'dwc.php';
+$dwc = ROOT_DIR . 'php/dwc.php';
 
 // when 'Reset Piping Tools' button is pressed and username is 'admin'
 if (isset($_POST['cbol']) && $_SESSION['username'] == 'admin')

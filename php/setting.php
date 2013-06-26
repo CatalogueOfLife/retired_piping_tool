@@ -59,7 +59,7 @@ elseif (isset($_POST['scheduler']) && $_SESSION['username'] == 'admin')
 
 	// set up variables used in sys call
 	$log = LOG;
-	$scheduler = ROOT_DIR . 'scheduler.php';
+	$scheduler = ROOT_DIR . 'php/scheduler.php';
 	`/usr/bin/php $scheduler > $log &`;
 
 	// go back to the setting form input page
@@ -72,7 +72,7 @@ elseif (isset($_POST['scheduler_pmonit']) && $_SESSION['username'] == 'admin')
 
 	// set up variables used in sys call
 	$log = LOG_PM;
-	$scheduler = ROOT_DIR . 'scheduler_pmonit.php';
+	$scheduler = ROOT_DIR . 'php/scheduler_pmonit.php';
 	`/usr/bin/php $scheduler > $log &`;
 
 	// go back to the setting form input page
