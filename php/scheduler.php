@@ -359,8 +359,24 @@ $templateTxt =
 'family', 'order', 'class', 'phylum', 'kingdom', 'higherClassification', 'namePublishedIn', 'taxonRemarks',
 'source', 'updated', 'provider', 'gsd_comments', 'gsd_comments_predefined', 'gsd_short_name', 'gsd_status',
 'history_status', 'history_comments', 'tag', 'scientificName', 'taxonRank', 'in_col', 'matched_by'
-UNION SELECT * FROM DATABASENAMESPACEHOLDER
+UNION SELECT * FROM DATABASENAMESPACEHOLDER";
+
+/* Cannot use this part of query as it doesn't handle utf8 correctly :(
 INTO OUTFILE 'OUTPUTFILESPACEHOLDER' FIELDS TERMINATED BY '\t' OPTIONALLY ENCLOSED BY '\"' ESCAPED BY '' LINES TERMINATED BY '\n';";
+*/
+
+// $fields array is used in the section handling utf8 output
+// Just a list of field in taxa table
+$fields = array (	'id', 'taxonID', 'genus', 'specificEpithet',
+					'scientificNameAuthorship', 'infraspecificEpithet',
+					'verbatimTaxonRank', 'taxonomicStatus',
+					'acceptedNameUsageID', 'parentNameUsageID', 'family',
+					'order', 'class', 'phylum', 'kingdom',
+					'higherClassification', 'namePublishedIn', 'taxonRemarks',
+					'source', 'updated', 'provider', 'gsd_comments',
+					'gsd_comments_predefined', 'gsd_short_name', 'gsd_status',
+					'history_status', 'history_comments', 'tag',
+					'scientificName', 'taxonRank', 'in_col', 'matched_by' );
 
 foreach ($database_names as $database_name)
 {
@@ -378,7 +394,43 @@ foreach ($database_names as $database_name)
 					);
 
 	if ($debugF) fwrite($dh, $query . "\n");
-	if (!$dryRunF) $db->query2($query);
+	if (!$dryRunF)
+		$db->query2($query);
+	else
+		break;
+
+
+	//////////////////////////////////////////////////////////////
+	// All this section is needed to handle utf8 :( //////////////
+	//////////////////////////////////////////////////////////////
+
+	// Output File Handle
+	$ofh = fopen($outputFile, 'w');
+
+	// write out the output data for this gsd
+	for ($i = 0; $i < $db->num_rows(); $i++)
+	{
+		$results = $db->fetch();
+
+		if ($results[$fields[0]])
+			fwrite($ofh, '"' . $results[$fields[0]] . '"');
+		else
+			fwrite($ofh, "NULL");
+
+		foreach (array_slice($fields,1) as $field)
+		{
+			if ($results[$field])
+				fwrite($ofh, "\t" . '"' . $results[$field] . '"');
+			else
+				fwrite($ofh, "\t" . "NULL");
+		}
+		fwrite($ofh, "\n");
+	}
+	fclose($ofh);
+
+	//////////////////////////////////////////////////////////////
+	// utf8 handling section ended ///////////////////////////////
+	//////////////////////////////////////////////////////////////
 }
 
 // Scheduler.php ending message

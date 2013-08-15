@@ -166,6 +166,7 @@ $query =
 	`taxonRank` varchar(24) DEFAULT NULL,
 	`in_col` tinyint(3) unsigned DEFAULT NULL,
 	`matched_by` varchar(8) DEFAULT NULL,
+	`datasetName` varchar(150) DEFAULT NULL,
 	PRIMARY KEY (`ATid`)
 )
 ENGINE=MyISAM
@@ -221,12 +222,13 @@ $templateTxt4 =
 	`scientificName`,
 	`taxonRank`,
 	`in_col`,
-	`matched_by` 
+	`matched_by`,
+	`datasetName` 
 )
 SELECT
 	`id`,
 
-	CONCAT_WS(":", "GSDSPACEHOLDER", `gsd_status`, `gsd_comments`,
+	CONCAT_WS(":", `gsd_status`, `gsd_comments`,
 	`gsd_comments_predefined`),
 
 	`gsd_status`,
@@ -259,7 +261,8 @@ SELECT
 	`scientificName`,
 	`taxonRank`,
 	`in_col`,
-	`matched_by`
+	`matched_by`,
+	"GSDSPACEHOLDER"
 FROM GSDSPACEHOLDER
 WHERE (
 	`GSDSPACEHOLDER`.`gsd_comments` IS NOT NULL OR
@@ -340,7 +343,7 @@ $templateTxt =
 	'taxonomicStatus', 'acceptedNameUsageID', 'parentNameUsageID', 'family',
 	'order', 'class', 'phylum', 'kingdom', 'higherClassification',
 	'namePublishedIn', 'taxonRemarks',
-	'source'
+	'source', 'datasetName'
 UNION
 SELECT
 	`taxonID`, `scientificName`, `taxonRank`, `genus`, `specificEpithet`,
@@ -348,25 +351,49 @@ SELECT
 	`taxonomicStatus`, `acceptedNameUsageID`, `parentNameUsageID`, `family`,
 	`order`, `class`, `phylum`, `kingdom`, `higherClassification`,
 	`namePublishedIn`, `taxonRemarks`,
-	`source`
+	`source`, `datasetName`
 FROM annotated_taxa
 WHERE
 	(`gsd_comments` IS NOT NULL OR
 	 `gsd_status` IS NOT NULL OR
 	 `gsd_comments_predefined` IS NOT NULL) AND
-	provider_id = GBPIDSPACEHOLDER
+	provider_id = GBPIDSPACEHOLDER";
+
+
+/* Cannot use this query as it doesn't handle utf8 correctly :(
 INTO OUTFILE 'OUTPUTFILESPACEHOLDER'
 	FIELDS TERMINATED BY '\t'
 	OPTIONALLY ENCLOSED BY '\"'
 	ESCAPED BY ''
 	LINES TERMINATED BY '\\n';";
-
-/* Old mysql output comments exporting taxa table data
-"SELECT 'taxonID', 'scientificName', 'taxonRank', 'genus', 'specificEpithet', 'scientificNameAuthorship', 'infraspecificEpithet', 'verbatimTaxonRank', 'taxonomicStatus', 'acceptedNameUsageID', 'parentNameUsageID', 'family', 'order', 'class', 'phylum', 'kingdom', 'higherClassification', 'namePublishedIn', 'taxonRemarks', 'source'
-UNION
-SELECT `taxonID`, `scientificName`, `taxonRank`, `genus`, `specificEpithet`, `scientificNameAuthorship`, `infraspecificEpithet`, `verbatimTaxonRank`, `taxonomicStatus`, `acceptedNameUsageID`, `parentNameUsageID`, `family`, `order`, `class`, `phylum`, `kingdom`, `higherClassification`, `namePublishedIn`, CONCAT_WS(' ', 'Status:', `gsd_status`, '. Comments:', `gsd_comments`, '; ' ,
-`gsd_comments_predefined`) as `taxonRemarks`, `source` FROM taxa WHERE (`gsd_comments` IS NOT NULL OR `gsd_status` IS NOT NULL OR `gsd_comments_predefined` IS NOT NULL) AND provider_id = GBPIDSPACEHOLDER INTO OUTFILE 'OUTPUTFILESPACEHOLDER' FIELDS TERMINATED BY '\t' OPTIONALLY ENCLOSED BY '\"' ESCAPED BY '' LINES TERMINATED BY '\\n';";
 */
+
+// $fields array is used in the section handling utf8 output
+// Just a list of field in annotated_taxa table
+$fields = array (
+					'taxonID',
+					'scientificName',
+					'taxonRank',
+					'genus',
+					'specificEpithet',
+					'scientificNameAuthorship',
+					'infraspecificEpithet',
+					'verbatimTaxonRank',
+					'taxonomicStatus',
+					'acceptedNameUsageID',
+					'parentNameUsageID',
+					'family',
+					'order',
+					'class',
+					'phylum',
+					'kingdom',
+					'higherClassification',
+					'namePublishedIn',
+					'taxonRemarks',
+					'source',
+					'datasetName'
+				);
+
 
 foreach ($gbps as $gbp)
 	if ($gbp != 'admin')
@@ -393,7 +420,55 @@ foreach ($gbps as $gbp)
 							$templateTxt
 						);
 		if ($debugF) fwrite($dh, $query . "\n");
-		if (!$dryRunF) $db->query2($query);
+		if (!$dryRunF)
+			$db->query2($query);
+		else
+			break;
+
+		//////////////////////////////////////////////////////
+		// All this section is needed to handle utf8 :( //////
+		//////////////////////////////////////////////////////
+
+		// Output File Handle
+		$ofh = fopen($outputFile, 'w');
+
+/*
+		// write the header first
+		fwrite($ofh, '"' . $fields[0] . '"');
+		foreach (array_slice($fields,1) as $field)
+		{
+			fwrite($ofh, "\t" . '"' . $field . '"');
+		}
+		fwrite($ofh, "\n");
+*/
+
+		// output the actual data
+		for ($i = 0; $i < $db->num_rows(); $i++)
+		{
+			$results = $db->fetch();
+
+			if ($results[$fields[0]])
+				fwrite($ofh, '"' . $results[$fields[0]] . '"');
+			else
+				fwrite($ofh, "NULL");
+
+			foreach (array_slice($fields,1) as $field)
+			{
+				if ($results[$field])
+					fwrite($ofh, "\t" . '"' . $results[$field] . '"');
+				elseif ($field != 'verbatimTaxonRank')
+					fwrite($ofh, "\t" . "NULL");
+				else
+					fwrite($ofh, "\t" . '""');
+			}
+			fwrite($ofh, "\n");
+		}
+		fclose($ofh);
+
+		//////////////////////////////////////////////////////
+		// utf8 handling section ended ///////////////////////
+		//////////////////////////////////////////////////////
+
 
 		$zip = new ZipArchive;
 		if (	file_exists($outputFile) &&
