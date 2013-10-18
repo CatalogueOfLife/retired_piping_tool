@@ -228,8 +228,8 @@ $templateTxt4 =
 SELECT
 	`id`,
 
-	CONCAT_WS(":", `gsd_status`, `gsd_comments`,
-	`gsd_comments_predefined`),
+	CONCAT_WS(":", IFNULL(`gsd_status`,""), IFNULL(`gsd_comments`,""),
+	IFNULL(`gsd_comments_predefined`,"")),
 
 	`gsd_status`,
 	`gsd_comments`,
@@ -447,19 +447,19 @@ foreach ($gbps as $gbp)
 		{
 			$results = $db->fetch();
 
-			if ($results[$fields[0]])
-				fwrite($ofh, '"' . $results[$fields[0]] . '"');
-			else
-				fwrite($ofh, "NULL");
+			if ($results[$fields[0]]!= 'NULL')
+				fwrite($ofh, $results[$fields[0]]);
+	//		else
+	//			fwrite($ofh, "NULL");
 
 			foreach (array_slice($fields,1) as $field)
 			{
-				if ($results[$field])
-					fwrite($ofh, "\t" . '"' . $results[$field] . '"');
-				elseif ($field != 'verbatimTaxonRank')
-					fwrite($ofh, "\t" . "NULL");
+				if ($results[$field]!= 'NULL')
+					fwrite($ofh, "\t" . $results[$field]);
+			//	elseif ($field != 'verbatimTaxonRank')
+			//		fwrite($ofh, "\t" . "NULL");
 				else
-					fwrite($ofh, "\t" . '""');
+					fwrite($ofh, "\t");
 			}
 			fwrite($ofh, "\n");
 		}
